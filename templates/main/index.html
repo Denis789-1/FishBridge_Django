@@ -1,0 +1,266 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishBridge — Главная</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <div class="container header-content">
+
+        <a href="{% url 'home' %}" class="logo">
+            Fish<span>Bridge</span>
+        </a>
+
+        <nav aria-label="Основная навигация">
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'ponds' %}">Водоёмы</a>
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'account' %}">Кабинет</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="container">
+
+            <h1>Добро пожаловать в FishBridge!</h1>
+
+            <p>
+                Найдите подходящий водоём, выберите место для рыбалки
+                и забронируйте сектор для комфортного отдыха на природе.
+            </p>
+
+            <a href="{% url 'ponds' %}" class="btn btn-light">
+                Выбрать водоём
+            </a>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+
+            <h2 class="section-title">Почему выбирают нас?</h2>
+
+            <p class="section-description">
+                Всё необходимое для удобной организации рыбалки
+            </p>
+
+            <div class="advantages">
+
+                <article class="advantage">
+                    <h3>Удобное бронирование</h3>
+                    <p>
+                        Выбирайте водоём, сектор и тариф
+                        в одном месте.
+                    </p>
+                </article>
+
+                <article class="advantage">
+                    <h3>Разные водоёмы</h3>
+                    <p>
+                        Сравнивайте места для рыбалки
+                        и выбирайте подходящее.
+                    </p>
+                </article>
+
+                <article class="advantage">
+                    <h3>Аренда оборудования</h3>
+                    <p>
+                        Получайте необходимое снаряжение
+                        для комфортного отдыха.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+
+            <h2 class="section-title">Популярные водоёмы</h2>
+
+            <p class="section-description">
+                Посмотрите несколько мест для будущей рыбалки
+            </p>
+
+            <div class="cards">
+
+                <article class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=600"
+                        alt="Лесной пруд"
+                    >
+
+                    <div class="card-content">
+                        <h3>Лесной пруд</h3>
+
+                        <p>
+                            Тихое место среди деревьев
+                            для спокойной рыбалки.
+                        </p>
+
+                        <a href="{% url 'pond' %}" class="btn">
+                            Подробнее
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?w=600"
+                        alt="Большое озеро"
+                    >
+
+                    <div class="card-content">
+                        <h3>Большое озеро</h3>
+
+                        <p>
+                            Просторный водоём с несколькими
+                            рыболовными местами.
+                        </p>
+
+                        <a href="{% url 'pond' %}" class="btn">
+                            Подробнее
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600"
+                        alt="Малый пруд"
+                    >
+
+                    <div class="card-content">
+                        <h3>Малый пруд</h3>
+
+                        <p>
+                            Небольшой водоём для отдыха
+                            с семьёй и друзьями.
+                        </p>
+
+                        <a href="{% url 'pond' %}" class="btn">
+                            Подробнее
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+
+            <h2 class="section-title">Как это работает?</h2>
+
+            <p class="section-description">
+                Всего три простых шага до рыбалки
+            </p>
+
+            <div class="steps">
+
+                <article class="step">
+                    <span class="step-number">1</span>
+
+                    <h3>Выберите водоём</h3>
+
+                    <p>
+                        Ознакомьтесь с доступными местами
+                        и их описанием.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">2</span>
+
+                    <h3>Забронируйте сектор</h3>
+
+                    <p>
+                        Выберите подходящий сектор,
+                        дату и тариф.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">3</span>
+
+                    <h3>Отправляйтесь на рыбалку</h3>
+
+                    <p>
+                        Подготовьтесь к отдыху
+                        и наслаждайтесь природой.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+
+        <div class="footer-content">
+
+            <section class="footer-about">
+                <h2>Fish<span>Bridge</span></h2>
+
+                <p>
+                    Сервис для удобного бронирования рыболовных мест.
+                    Выбирайте водоёмы, бронируйте секторы
+                    и отдыхайте на природе.
+                </p>
+            </section>
+
+            <nav class="footer-links" aria-label="Навигация в подвале">
+                <h3>Навигация</h3>
+
+                <a href="{% url 'home' %}">Главная</a>
+                <a href="{% url 'ponds' %}">Водоёмы</a>
+                <a href="{% url 'pond' %}">Подробнее о водоёме</a>
+            </nav>
+
+            <nav class="footer-links" aria-label="Навигация по аккаунту">
+                <h3>Мой аккаунт</h3>
+
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+                <a href="{% url 'account' %}">Личный кабинет</a>
+            </nav>
+
+            <section class="footer-info">
+                <h3>FishBridge</h3>
+
+                <p>Удобное бронирование</p>
+                <p>Аренда оборудования</p>
+                <p>Рыбалка и отдых</p>
+            </section>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 FishBridge. Все права защищены.</p>
+
+            <p>Сервис бронирования рыболовных мест</p>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
