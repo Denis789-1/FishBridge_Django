@@ -11,15 +11,21 @@
 <header>
     <div class="container header-content">
         <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
-        <nav>
-            <a href="{% url 'home' %}">Главная</a>
+        <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
+<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a>
             <a href="{% url 'ponds' %}">Водоёмы</a>
             <a href="{% url 'login' %}">Войти</a>
-            <a href="{% url 'register' %}">Регистрация</a>
-        </nav>
+            <a href="{% url 'register' %}">Регистрация</a></nav>
     </div>
 </header>
 <main>
+    {% if messages %}
+    <div class="container messages">
+        {% for message in messages %}
+        <p class="message {{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
     <section class="hero">
         <div class="container">
             <h1>Рыбалка начинается здесь</h1>
@@ -45,7 +51,7 @@
                 <p class="empty-state">Пока нет доступных водоёмов.</p>
                 {% endfor %}
             </div>
-            <div style="text-align:center; margin-top:30px;">
+            <div class="center-action center-action--large">
                 <a href="{% url 'ponds' %}" class="btn">Все водоёмы</a>
             </div>
         </div>
@@ -84,5 +90,6 @@
         <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
     </div>
 </footer>
+    <script src="{% static 'js/menu.js' %}" defer></script>
 </body>
 </html>

@@ -10,7 +10,8 @@
 <body>
 <header><div class="container header-content">
     <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
-    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'login' %}">Войти</a><a href="{% url 'account' %}">Кабинет</a></nav>
+    <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
+<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'login' %}">Войти</a><a href="{% url 'account' %}">Кабинет</a></nav>
 </div></header>
 <main class="section"><div class="container">
     <h1 class="section-title">Наши водоёмы</h1>
@@ -43,7 +44,7 @@
         {% if page_obj.has_next %}<a href="?q={{ query|urlencode }}&page={{ page_obj.next_page_number }}">Вперёд</a>{% endif %}
     </div>
     {% endif %}
-    <div class="info-block" style="margin-top:35px;">
+    <div class="info-block info-block--spaced">
         <h2>Как выбрать водоём?</h2>
         <p>При выборе обратите внимание на расположение, доступные рыболовные секторы и виды рыб. На странице каждого водоёма можно посмотреть дополнительную информацию и варианты тарифов.</p>
     </div>
@@ -57,4 +58,5 @@
     </div>
     <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
 </div></footer>
+    <script src="{% static 'js/menu.js' %}" defer></script>
 </body></html>

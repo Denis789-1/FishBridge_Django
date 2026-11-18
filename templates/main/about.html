@@ -10,7 +10,8 @@
 <body>
 <header><div class="container header-content">
     <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
-    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></nav>
+    <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
+<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></nav>
 </div></header>
 <main class="section"><div class="container">
     <h1 class="section-title">О FishBridge</h1>
@@ -25,7 +26,8 @@
         <div class="info-block"><h2>Дополнительные услуги</h2><p>Сервис предусматривает учёт аренды оборудования и дополнительных платежей.</p></div>
         <div class="info-block"><h2>Учёт улова</h2><p>Данные о выловленной рыбе могут фиксироваться в записи бронирования.</p></div>
     </div>
-    <div style="text-align:center; margin-top:25px;"><a href="{% url 'ponds' %}" class="btn">Перейти к водоёмам</a></div>
+    <div class="center-action"><a href="{% url 'ponds' %}" class="btn">Перейти к водоёмам</a></div>
 </div></main>
 <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p></div></div></footer>
+    <script src="{% static 'js/menu.js' %}" defer></script>
 </body></html>
