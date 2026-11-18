@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Водоёмы — FishBridge</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header class="pond-header">
+        <a href="{% url 'home' %}" class="pond-logo">FishBridge</a>
+        <nav>
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'ponds' %}">Водоёмы</a>
+        </nav>
+    </header>
+
+    <main class="pond-container">
+        <h1>Каталог водоёмов</h1>
+        <p class="pond-subtitle">Выберите водоём для рыбалки</p>
+
+        <form method="get" class="pond-search">
+            <input
+                type="search"
+                name="q"
+                placeholder="Поиск водоёма..."
+                value="{{ query }}"
+            >
+            <button type="submit">Найти</button>
+        </form>
+
+        <div class="pond-list">
+            {% for pond in page_obj %}
+                <article class="pond-card">
+                    <h2>{{ pond.name }}</h2>
+
+                    <p>{{ pond.description|truncatechars:150 }}</p>
+
+                    <div class="pond-details">
+                        {% if pond.area %}
+                            <span>Площадь: {{ pond.area|floatformat:2 }} га</span>
+                        {% endif %}
+
+                        {% if pond.depth %}
+                            <span>Глубина: {{ pond.depth|floatformat:2 }} м</span>
+                        {% endif %}
+
+                        <span>Адрес: {{ pond.address }}</span>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="pond-empty">Водоёмы не найдены.</p>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+            <div class="pond-pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?q={{ query }}&page=1">Первая</a>
+                    <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+
+                <span>
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">Вперёд</a>
+                    <a href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}">Последняя</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="pond-footer">
+        <p>© 2026 FishBridge</p>
+    </footer>
+
+</body>
+</html>

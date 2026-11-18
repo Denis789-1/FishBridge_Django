@@ -318,3 +318,147 @@ nav a:hover {
         font-size: 28px;
     }
 }
+.pond-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: darkgreen;
+    color: white;
+}
+
+.pond-logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pond-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.pond-header nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.pond-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    min-height: 70vh;
+}
+
+.pond-container h1 {
+    margin-bottom: 10px;
+}
+
+.pond-subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.pond-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pond-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.pond-search button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: darkgreen;
+    color: white;
+    cursor: pointer;
+}
+
+.pond-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.pond-card {
+    padding: 22px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.pond-card h2 {
+    margin-bottom: 12px;
+    color: darkgreen;
+}
+
+.pond-card p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.pond-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.pond-empty {
+    grid-column: 1 / -1;
+    padding: 30px;
+    text-align: center;
+}
+
+.pond-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.pond-pagination a {
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: darkgreen;
+    color: white;
+    text-decoration: none;
+}
+
+.pond-footer {
+    padding: 20px;
+    text-align: center;
+    background: #183d2a;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .pond-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .pond-header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pond-search {
+        flex-direction: column;
+    }
+
+    .pond-search button {
+        min-height: 44px;
+    }
+}
