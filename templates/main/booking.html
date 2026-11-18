@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishBridge — Бронирование</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header><div class="container header-content">
+    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
+    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'account' %}">Кабинет</a></nav>
+</div></header>
+<main class="container">
+    <div class="form-panel">
+        <h1>Бронирование сектора</h1>
+        <p class="form-description">Выберите сектор, тариф и дату посещения</p>
+        {% if messages %}{% for message in messages %}<p class="status">{{ message }}</p>{% endfor %}{% endif %}
+        {% if error %}<div class="form-errors">{{ error }}</div>{% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="sector">Рыболовный сектор</label>
+                <select id="sector" name="sector" required>
+                    <option value="">Выберите сектор</option>
+                    {% for sector in sectors %}
+                    <option value="{{ sector.pk }}" {% if selected_sector == sector.pk|stringformat:"s" %}selected{% endif %}>{{ sector.pond.name }} — {{ sector.name }} ({{ sector.price|floatformat:2 }} ₽)</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tariff">Тариф</label>
+                <select id="tariff" name="tariff" required>
+                    <option value="">Выберите тариф</option>
+                    {% for tariff in tariffs %}
+                    <option value="{{ tariff.pk }}">{{ tariff.name }} — {{ tariff.price|floatformat:2 }} ₽, {{ tariff.duration_hours }} ч.</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="start_datetime">Дата и время начала</label>
+                <input type="datetime-local" id="start_datetime" name="start_datetime" required>
+            </div>
+            <button type="submit" class="btn">Отправить заявку</button>
+        </form>
+        <div class="form-footer"><a href="{% url 'ponds' %}">Вернуться к каталогу</a></div>
+    </div>
+</main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><a href="{% url 'about' %}">О сервисе</a></div></div></footer>
+</body></html>

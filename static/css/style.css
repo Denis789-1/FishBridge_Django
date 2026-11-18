@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,6 +22,12 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+button {
+    cursor: pointer;
+}
+
+/* HEADER */
 
 header {
     background-color: #245c43;
@@ -59,6 +66,8 @@ nav a:hover {
     color: #a9d8b5;
 }
 
+/* BUTTONS */
+
 .btn {
     display: inline-block;
     background-color: #347c52;
@@ -83,6 +92,27 @@ nav a:hover {
     background-color: #e4eee7;
 }
 
+/* TITLES */
+
+.section {
+    padding: 55px 0;
+}
+
+.section-title {
+    font-size: 29px;
+    text-align: center;
+    margin-bottom: 12px;
+    color: #245c43;
+}
+
+.section-description {
+    text-align: center;
+    color: #69736c;
+    margin-bottom: 35px;
+}
+
+/* HERO */
+
 .hero {
     background:
         linear-gradient(rgba(0, 40, 20, 0.65), rgba(0, 40, 20, 0.65)),
@@ -105,41 +135,7 @@ nav a:hover {
     font-size: 18px;
 }
 
-.section {
-    padding: 55px 0;
-}
-
-.section-title {
-    font-size: 29px;
-    text-align: center;
-    margin-bottom: 12px;
-    color: #245c43;
-}
-
-.section-description {
-    text-align: center;
-    color: #69736c;
-    margin-bottom: 35px;
-}
-
-.advantages {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-.advantage {
-    background-color: white;
-    border: 1px solid #e1e8e2;
-    padding: 25px;
-    border-radius: 9px;
-    text-align: center;
-}
-
-.advantage h3 {
-    color: #245c43;
-    margin-bottom: 10px;
-}
+/* CARDS */
 
 .cards {
     display: grid;
@@ -179,6 +175,29 @@ nav a:hover {
     margin-top: 8px;
 }
 
+/* ADVANTAGES */
+
+.advantages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.advantage {
+    background-color: white;
+    border: 1px solid #e1e8e2;
+    padding: 25px;
+    border-radius: 9px;
+    text-align: center;
+}
+
+.advantage h3 {
+    color: #245c43;
+    margin-bottom: 10px;
+}
+
+/* STEPS */
+
 .steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -202,6 +221,182 @@ nav a:hover {
     border-radius: 50%;
     margin-bottom: 12px;
 }
+
+/* INFO BLOCKS */
+
+.info-block {
+    background-color: white;
+    padding: 25px;
+    border-radius: 9px;
+    border: 1px solid #e1e8e2;
+    margin-bottom: 25px;
+}
+
+.info-block h2 {
+    color: #245c43;
+    margin-bottom: 15px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+/* FORMS */
+
+.form-panel {
+    background-color: white;
+    max-width: 500px;
+    margin: 45px auto;
+    padding: 35px;
+    border-radius: 9px;
+    border: 1px solid #e1e8e2;
+}
+
+.form-panel h1 {
+    text-align: center;
+    color: #245c43;
+    margin-bottom: 10px;
+}
+
+.form-description {
+    text-align: center;
+    color: #69736c;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5ce;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: 2px solid #a9d8b5;
+    border-color: #347c52;
+}
+
+.form-panel .btn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 22px;
+}
+
+.form-footer a {
+    color: #347c52;
+    font-weight: bold;
+}
+
+/* ACCOUNT */
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.avatar {
+    width: 85px;
+    height: 85px;
+    background-color: #dcebe0;
+    color: #245c43;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.stat {
+    background-color: #eaf2ec;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    color: #245c43;
+    font-size: 26px;
+}
+
+/* TABLE */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th, td {
+    padding: 14px;
+    border-bottom: 1px solid #e1e8e2;
+    text-align: left;
+}
+
+th {
+    background-color: #eaf2ec;
+    color: #245c43;
+}
+
+.status {
+    display: inline-block;
+    background-color: #dcefe1;
+    color: #245c43;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+/* STAFF */
+
+.role {
+    background-color: white;
+    padding: 25px;
+    border-radius: 9px;
+    border: 1px solid #e1e8e2;
+}
+
+.role h3 {
+    color: #245c43;
+    margin-bottom: 12px;
+}
+
+/* FOOTER */
 
 .footer {
     background-color: #194b35;
@@ -268,6 +463,8 @@ nav a:hover {
     font-size: 14px;
 }
 
+/* ADAPTIVE */
+
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
@@ -301,13 +498,20 @@ nav a:hover {
 @media (max-width: 520px) {
     .cards,
     .advantages,
-    .steps {
+    .steps,
+    .info-grid,
+    .stats {
         grid-template-columns: 1fr;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
         gap: 25px;
+    }
+
+    .profile {
+        flex-direction: column;
+        text-align: center;
     }
 
     .hero {
@@ -317,148 +521,88 @@ nav a:hover {
     .hero h1 {
         font-size: 28px;
     }
-}
-.pond-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    background-color: darkgreen;
-    color: white;
+
+    .form-panel {
+        padding: 25px 20px;
+    }
 }
 
-.pond-logo {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-}
 
-.pond-header nav {
-    display: flex;
-    gap: 25px;
+/* DJANGO PAGES */
+.form-errors {
+    color: #a32626;
+    background: #fbeaea;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 18px;
 }
-
-.pond-header nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.pond-container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
-    min-height: 70vh;
-}
-
-.pond-container h1 {
-    margin-bottom: 10px;
-}
-
-.pond-subtitle {
-    color: #666;
-    margin-bottom: 25px;
-}
-
-.pond-search {
+.page-search {
     display: flex;
     gap: 10px;
-    margin-bottom: 30px;
+    margin: 0 0 28px;
 }
-
-.pond-search input {
+.page-search input {
     flex: 1;
     min-width: 0;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #cbd5ce;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.detail-image {
+    display: block;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
     border-radius: 8px;
+    margin-bottom: 20px;
 }
-
-.pond-search button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    background: darkgreen;
-    color: white;
-    cursor: pointer;
-}
-
-.pond-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.pond-card {
-    padding: 22px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.pond-card h2 {
-    margin-bottom: 12px;
-    color: darkgreen;
-}
-
-.pond-card p {
-    margin-bottom: 15px;
-    color: #555;
-}
-
-.pond-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 14px;
-}
-
-.pond-empty {
-    grid-column: 1 / -1;
-    padding: 30px;
-    text-align: center;
-}
-
-.pond-pagination {
+.pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
-    margin: 30px 0;
+    gap: 12px;
+    margin-top: 30px;
 }
-
-.pond-pagination a {
-    padding: 10px 15px;
+.pagination a, .pagination span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 8px 14px;
     border-radius: 6px;
-    background: darkgreen;
-    color: white;
-    text-decoration: none;
 }
-
-.pond-footer {
-    padding: 20px;
+.pagination a {
+    color: white;
+    background: #347c52;
+}
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 25px;
     text-align: center;
-    background: #183d2a;
-    color: white;
+    background: white;
+    border: 1px solid #e1e8e2;
+    border-radius: 9px;
 }
-
-@media (max-width: 600px) {
-    .pond-header {
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5ce;
+    border-radius: 5px;
+    font-size: 15px;
+    background: white;
+}
+.info-block img {
+    max-width: 100%;
+}
+@media (max-width: 520px) {
+    .page-search {
         flex-direction: column;
-        gap: 15px;
     }
-
-    .pond-header nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .pond-search {
-        flex-direction: column;
-    }
-
-    .pond-search button {
+    .page-search .btn {
         min-height: 44px;
+    }
+    .detail-image {
+        height: 220px;
     }
 }

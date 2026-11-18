@@ -1,83 +1,60 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Водоёмы — FishBridge</title>
+    <title>FishBridge — Водоёмы</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-
-    <header class="pond-header">
-        <a href="{% url 'home' %}" class="pond-logo">FishBridge</a>
-        <nav>
-            <a href="{% url 'home' %}">Главная</a>
-            <a href="{% url 'ponds' %}">Водоёмы</a>
-        </nav>
-    </header>
-
-    <main class="pond-container">
-        <h1>Каталог водоёмов</h1>
-        <p class="pond-subtitle">Выберите водоём для рыбалки</p>
-
-        <form method="get" class="pond-search">
-            <input
-                type="search"
-                name="q"
-                placeholder="Поиск водоёма..."
-                value="{{ query }}"
-            >
-            <button type="submit">Найти</button>
-        </form>
-
-        <div class="pond-list">
-            {% for pond in page_obj %}
-                <article class="pond-card">
-                    <h2>{{ pond.name }}</h2>
-
-                    <p>{{ pond.description|truncatechars:150 }}</p>
-
-                    <div class="pond-details">
-                        {% if pond.area %}
-                            <span>Площадь: {{ pond.area|floatformat:2 }} га</span>
-                        {% endif %}
-
-                        {% if pond.depth %}
-                            <span>Глубина: {{ pond.depth|floatformat:2 }} м</span>
-                        {% endif %}
-
-                        <span>Адрес: {{ pond.address }}</span>
-                    </div>
-                </article>
-            {% empty %}
-                <p class="pond-empty">Водоёмы не найдены.</p>
-            {% endfor %}
-        </div>
-
-        {% if page_obj.paginator.num_pages > 1 %}
-            <div class="pond-pagination">
-                {% if page_obj.has_previous %}
-                    <a href="?q={{ query }}&page=1">Первая</a>
-                    <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Назад</a>
-                {% endif %}
-
-                <span>
-                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-                </span>
-
-                {% if page_obj.has_next %}
-                    <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">Вперёд</a>
-                    <a href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}">Последняя</a>
-                {% endif %}
+<header><div class="container header-content">
+    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
+    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'login' %}">Войти</a><a href="{% url 'account' %}">Кабинет</a></nav>
+</div></header>
+<main class="section"><div class="container">
+    <h1 class="section-title">Наши водоёмы</h1>
+    <p class="section-description">Выберите подходящее место для рыбалки</p>
+    <form method="get" action="{% url 'ponds' %}" class="page-search">
+        <input type="search" name="q" value="{{ query }}" placeholder="Поиск по названию, описанию или адресу">
+        <button class="btn" type="submit">Найти</button>
+    </form>
+    <div class="cards">
+        {% for pond in page_obj %}
+        <article class="card">
+            <div class="card-content">
+                <h3>{{ pond.name }}</h3>
+                <p>{{ pond.description|default:"Описание пока не добавлено."|truncatechars:160 }}</p>
+                <p><strong>Адрес:</strong> {{ pond.address }}</p>
+                {% if pond.area %}<p><strong>Площадь:</strong> {{ pond.area|floatformat:2 }} га</p>{% endif %}
+                {% if pond.depth %}<p><strong>Глубина:</strong> {{ pond.depth|floatformat:2 }} м</p>{% endif %}
+                <p><strong>Секторов:</strong> {{ pond.sectors.count }}</p>
+                <a href="{% url 'pond_detail' pond.pk %}" class="btn">Подробнее</a>
             </div>
-        {% endif %}
-    </main>
-
-    <footer class="pond-footer">
-        <p>© 2026 FishBridge</p>
-    </footer>
-
-</body>
-</html>
+        </article>
+        {% empty %}
+        <p class="empty-state">По вашему запросу водоёмы не найдены.</p>
+        {% endfor %}
+    </div>
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}<a href="?q={{ query|urlencode }}&page={{ page_obj.previous_page_number }}">Назад</a>{% endif %}
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?q={{ query|urlencode }}&page={{ page_obj.next_page_number }}">Вперёд</a>{% endif %}
+    </div>
+    {% endif %}
+    <div class="info-block" style="margin-top:35px;">
+        <h2>Как выбрать водоём?</h2>
+        <p>При выборе обратите внимание на расположение, доступные рыболовные секторы и виды рыб. На странице каждого водоёма можно посмотреть дополнительную информацию и варианты тарифов.</p>
+    </div>
+</div></main>
+<footer class="footer"><div class="container">
+    <div class="footer-content">
+        <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
+        <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
+        <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
+        <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
+</div></footer>
+</body></html>

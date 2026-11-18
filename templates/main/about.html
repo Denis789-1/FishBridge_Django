@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishBridge — О сервисе</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header><div class="container header-content">
+    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
+    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></nav>
+</div></header>
+<main class="section"><div class="container">
+    <h1 class="section-title">О FishBridge</h1>
+    <p class="section-description">Сервис для планирования рыбалки и отдыха на природе</p>
+    <div class="info-block">
+        <h2>Наша задача</h2>
+        <p>FishBridge помогает выбрать подходящий водоём, ознакомиться с доступными рыболовными секторами и тарифами, а также организовать бронирование.</p>
+    </div>
+    <div class="info-grid">
+        <div class="info-block"><h2>Выбор водоёма</h2><p>В каталоге можно посмотреть описание, адрес и характеристики доступных водоёмов.</p></div>
+        <div class="info-block"><h2>Бронирование</h2><p>Пользователь выбирает сектор, тариф и время посещения.</p></div>
+        <div class="info-block"><h2>Дополнительные услуги</h2><p>Сервис предусматривает учёт аренды оборудования и дополнительных платежей.</p></div>
+        <div class="info-block"><h2>Учёт улова</h2><p>Данные о выловленной рыбе могут фиксироваться в записи бронирования.</p></div>
+    </div>
+    <div style="text-align:center; margin-top:25px;"><a href="{% url 'ponds' %}" class="btn">Перейти к водоёмам</a></div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p></div></div></footer>
+</body></html>

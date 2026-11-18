@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishBridge — Результаты поиска</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header><div class="container header-content">
+    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
+    <nav><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'account' %}">Кабинет</a></nav>
+</div></header>
+<main class="section"><div class="container">
+    <h1 class="section-title">Результаты поиска</h1>
+    <form method="get" action="{% url 'search' %}" class="page-search">
+        <input type="search" name="q" value="{{ query }}" placeholder="Введите название или адрес водоёма">
+        <button type="submit" class="btn">Найти</button>
+    </form>
+    {% if query %}
+    <p class="section-description">Результаты по запросу: «{{ query }}»</p>
+    <div class="cards">
+        {% for pond in ponds %}
+        <article class="card"><div class="card-content">
+            <h3>{{ pond.name }}</h3>
+            <p>{{ pond.description|default:"Описание пока не добавлено."|truncatechars:150 }}</p>
+            <p><strong>Адрес:</strong> {{ pond.address }}</p>
+            <a href="{% url 'pond_detail' pond.pk %}" class="btn">Открыть водоём</a>
+        </div></article>
+        {% empty %}<p class="empty-state">Ничего не найдено. Попробуйте изменить поисковый запрос.</p>{% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Введите запрос, чтобы найти водоём.</p>
+    {% endif %}
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p></div></div></footer>
+</body></html>
