@@ -1,4 +1,4 @@
-# Initial migration for FishBridge. Generated to match fishbridge/models.py.
+                                                                            
 from django.db import migrations, models
 import django.db.models.deletion
 from django.db.models import Q, F

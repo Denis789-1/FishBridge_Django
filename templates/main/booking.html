@@ -11,43 +11,40 @@
 <header><div class="container header-content">
     <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
     <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
-<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'account' %}">Кабинет</a></nav>
+    <nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'account' %}">Кабинет</a></nav>
 </div></header>
 <main class="container">
     <div class="form-panel">
         <h1>Бронирование сектора</h1>
         <p class="form-description">Выберите сектор, тариф и дату посещения</p>
         {% if messages %}{% for message in messages %}<p class="status">{{ message }}</p>{% endfor %}{% endif %}
-        {% if error %}<div class="form-errors">{{ error }}</div>{% endif %}
-        <form method="post">
+        <form method="post" id="booking-form" novalidate>
             {% csrf_token %}
+            {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+            {% for field in form %}
             <div class="form-group">
-                <label for="sector">Рыболовный сектор</label>
-                <select id="sector" name="sector" required>
-                    <option value="">Выберите сектор</option>
-                    {% for sector in sectors %}
-                    <option value="{{ sector.pk }}" {% if selected_sector == sector.pk|stringformat:"s" %}selected{% endif %}>{{ sector.pond.name }} — {{ sector.name }} ({{ sector.price|floatformat:2 }} ₽)</option>
-                    {% endfor %}
-                </select>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="field-error" role="alert">{{ error }}</p>{% endfor %}
             </div>
-            <div class="form-group">
-                <label for="tariff">Тариф</label>
-                <select id="tariff" name="tariff" required>
-                    <option value="">Выберите тариф</option>
-                    {% for tariff in tariffs %}
-                    <option value="{{ tariff.pk }}">{{ tariff.name }} — {{ tariff.price|floatformat:2 }} ₽, {{ tariff.duration_hours }} ч.</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="start_datetime">Дата и время начала</label>
-                <input type="datetime-local" id="start_datetime" name="start_datetime" required>
-            </div>
+            {% endfor %}
+            <p class="field-error" id="client-error" role="alert"></p>
             <button type="submit" class="btn">Отправить заявку</button>
         </form>
         <div class="form-footer"><a href="{% url 'ponds' %}">Вернуться к каталогу</a></div>
     </div>
 </main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><a href="{% url 'about' %}">О сервисе</a></div></div></footer>
-    <script src="{% static 'js/menu.js' %}" defer></script>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
+            <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
+            <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
+            <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
+    </div>
+</footer>
+<script src="{% static 'js/menu.js' %}" defer></script>
+<script src="{% static 'js/forms.js' %}" defer></script>
 </body></html>

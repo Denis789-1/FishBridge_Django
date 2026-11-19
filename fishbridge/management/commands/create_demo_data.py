@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        # Пользователи разных ролей
+                                   
         admin, _ = User.objects.get_or_create(
             username='admin_demo', defaults={'password': make_password('demo12345'), 'email': 'admin@fishbridge.local', 'first_name': 'Анна', 'last_name': 'Администратор', 'role': User.Role.ADMIN}
         )
@@ -111,7 +111,7 @@ class Command(BaseCommand):
             obj, _ = RentalItem.objects.get_or_create(name=name, defaults={'description': f'{name} для рыбалки', 'price_per_day': Decimal(price), 'quantity_available': count})
             items.append(obj)
 
-        # Не менее 10 партий зарыбления (связь водоём—вид рыбы через явную модель).
+                                                                                   
         for i in range(10):
             pond = ponds[i % len(ponds)]
             fish = species[i % len(species)]
@@ -121,7 +121,7 @@ class Command(BaseCommand):
                 defaults={'quantity': 50 + i * 5, 'total_weight': Decimal('100.00') + Decimal(i * 5), 'responsible': ichthyologists[i % len(ichthyologists)]}
             )
 
-        # 30 бронирований в основной таблице и связанные записи.
+                                                                
         base_day = date(2026, 12, 1)
         for i in range(30):
             start_naive = datetime.combine(base_day + timedelta(days=i), time(8, 0))

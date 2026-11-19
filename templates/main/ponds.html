@@ -16,13 +16,14 @@
 <main class="section"><div class="container">
     <h1 class="section-title">Наши водоёмы</h1>
     <p class="section-description">Выберите подходящее место для рыбалки</p>
-    <form method="get" action="{% url 'ponds' %}" class="page-search">
-        <input type="search" name="q" value="{{ query }}" placeholder="Поиск по названию, описанию или адресу">
+    <form method="get" action="{% url 'ponds' %}" class="page-search" id="pond-search-form">
+        <input type="search" id="pond-search" name="q" value="{{ query }}" placeholder="Поиск по названию, описанию или адресу" data-api-url="{% url 'ponds_api' %}" autocomplete="off">
         <button class="btn" type="submit">Найти</button>
     </form>
-    <div class="cards">
+    <p id="pond-loading" class="section-description" aria-live="polite"></p>
+    <div class="cards" id="pond-cards" aria-live="polite">
         {% for pond in page_obj %}
-        <article class="card">
+        <article class="card" data-pond-card>
             <div class="card-content">
                 <h3>{{ pond.name }}</h3>
                 <p>{{ pond.description|default:"Описание пока не добавлено."|truncatechars:160 }}</p>
@@ -31,6 +32,7 @@
                 {% if pond.depth %}<p><strong>Глубина:</strong> {{ pond.depth|floatformat:2 }} м</p>{% endif %}
                 <p><strong>Секторов:</strong> {{ pond.sectors.count }}</p>
                 <a href="{% url 'pond_detail' pond.pk %}" class="btn">Подробнее</a>
+                <button type="button" class="favorite-button" data-favorite="{{ pond.pk }}" aria-pressed="false">♡ В избранное</button>
             </div>
         </article>
         {% empty %}
@@ -59,4 +61,5 @@
     <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
 </div></footer>
     <script src="{% static 'js/menu.js' %}" defer></script>
+    <script src="{% static 'js/ponds.js' %}" defer></script>
 </body></html>

@@ -1,17 +1,21 @@
 
-from datetime import datetime, timedelta
-
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils import timezone
+from django.http import JsonResponse
+from django.urls import reverse
+from datetime import timedelta
+import re
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from .forms import BookingForm
 
 from fishbridge.models import (
     Booking,
     Pond,
+    Rental,
     Sector,
     Tariff,
     User as FishBridgeUser,
@@ -62,74 +66,53 @@ def pond_detail(request, pk):
 
 
 def booking(request):
-    sectors = Sector.objects.filter(
-        is_active=True,
-        pond__is_active=True,
-    ).select_related('pond')
-    tariffs = Tariff.objects.filter(is_active=True)
-
-    selected_sector = request.GET.get('sector', '')
-    selected_tariff = ''
-    selected_datetime = ''
+    user_id = request.session.get('fishbridge_user_id')
+    profile = FishBridgeUser.objects.filter(id=user_id, is_active=True).first() if user_id else None
+    form = BookingForm(request.POST or None, initial={
+        'sector': request.GET.get('sector', '')
+    })
 
     if request.method == 'POST':
-        selected_sector = request.POST.get('sector', '').strip()
-        selected_tariff = request.POST.get('tariff', '').strip()
-        selected_datetime = request.POST.get('start_datetime', '').strip()
-
-        user_id = request.session.get('fishbridge_user_id')
-        profile = FishBridgeUser.objects.filter(
-            id=user_id,
-            is_active=True,
-        ).first() if user_id else None
-
         if not profile:
-            messages.error(request, 'Чтобы отправить заявку, сначала войдите в аккаунт.')
+            messages.error(request, 'Для бронирования сначала войдите в аккаунт.')
             return redirect('login')
-
-        try:
-            sector = Sector.objects.get(
-                pk=selected_sector,
-                is_active=True,
-                pond__is_active=True,
+        if form.is_valid():
+            booking_item = form.save(commit=False)
+            booking_item.user = profile
+            booking_item.end_datetime = booking_item.start_datetime + timedelta(
+                hours=booking_item.tariff.duration_hours
             )
-            tariff = Tariff.objects.get(pk=selected_tariff, is_active=True)
-            start_datetime = datetime.fromisoformat(selected_datetime)
+            try:
+                booking_item.full_clean()
+                booking_item.save()
+            except ValidationError as error:
+                if hasattr(error, 'message_dict'):
+                    for field, errors in error.message_dict.items():
+                        form.add_error(field if field in form.fields else None, errors)
+                else:
+                    form.add_error(None, error.messages)
+            else:
+                messages.success(request, 'Заявка на бронирование успешно отправлена.')
+                return redirect('account')
 
-            if timezone.is_naive(start_datetime):
-                start_datetime = timezone.make_aware(start_datetime)
+    return render(request, 'main/booking.html', {'form': form})
 
-            if start_datetime <= timezone.now():
-                raise ValueError('Выберите дату и время в будущем.')
 
-            new_booking = Booking(
-                user=profile,
-                sector=sector,
-                tariff=tariff,
-                start_datetime=start_datetime,
-                end_datetime=start_datetime + timedelta(hours=tariff.duration_hours),
-            )
-            new_booking.full_clean()
-            new_booking.save()
-
-            messages.success(request, 'Заявка на бронирование успешно отправлена.')
-            return redirect('account')
-
-        except (Sector.DoesNotExist, Tariff.DoesNotExist):
-            messages.error(request, 'Выберите доступный сектор и действующий тариф.')
-        except ValueError as error:
-            messages.error(request, str(error) or 'Проверьте дату и время бронирования.')
-        except ValidationError as error:
-            for error_message in error.messages:
-                messages.error(request, error_message)
-
-    return render(request, 'main/booking.html', {
-        'sectors': sectors,
-        'tariffs': tariffs,
-        'selected_sector': selected_sector,
-        'selected_tariff': selected_tariff,
-        'selected_datetime': selected_datetime,
-    })
+def ponds_api(request):
+    query = request.GET.get('q', '').strip()
+    ponds = Pond.objects.filter(is_active=True)
+    if query:
+        ponds = ponds.filter(
+            Q(name__icontains=query) | Q(description__icontains=query) | Q(address__icontains=query)
+        )
+    data = [{
+        'id': pond.pk,
+        'name': pond.name,
+        'description': pond.description or 'Описание пока не добавлено.',
+        'address': pond.address,
+        'url': reverse('pond_detail', args=[pond.pk]),
+    } for pond in ponds[:20]]
+    return JsonResponse({'ponds': data})
 
 
 def account(request):
@@ -141,18 +124,40 @@ def account(request):
     ).first() if user_id else None
 
     bookings = Booking.objects.none()
+    rentals = Rental.objects.none()
+
+    favorite_ponds = []
 
     if profile:
         bookings = Booking.objects.filter(
             user=profile
         ).select_related('sector__pond', 'tariff')
 
+        rentals = Rental.objects.filter(
+            booking__user=profile
+        ).select_related('rental_item', 'booking')
+
+        for pond in Pond.objects.filter(is_active=True).prefetch_related('sectors'):
+            sector = pond.sectors.filter(is_active=True).first()
+            favorite_ponds.append({
+                'id': pond.pk,
+                'name': pond.name,
+                'description': pond.description or 'Описание пока не добавлено.',
+                'address': pond.address or '',
+                'detail_url': reverse('pond_detail', args=[pond.pk]),
+                'booking_url': reverse('booking') + (f'?sector={sector.pk}' if sector else ''),
+                'has_sector': bool(sector),
+            })
+
     return render(request, 'main/account.html', {
         'profile': profile,
         'bookings': bookings,
+        'rentals': rentals,
+        'rentals_count': rentals.count(),
         'completed_count': bookings.filter(
             status=Booking.Status.COMPLETED
         ).count(),
+        'favorite_ponds': favorite_ponds,
     })
 
 
@@ -183,6 +188,7 @@ def register_page(request):
     if request.session.get('fishbridge_user_id'):
         return redirect('account')
 
+    values = {}
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         email = request.POST.get('email', '').strip().lower()
@@ -190,11 +196,23 @@ def register_page(request):
         first_name = request.POST.get('first_name', '').strip()
         last_name = request.POST.get('last_name', '').strip()
         phone = request.POST.get('phone', '').strip()
+        values = {'first_name': first_name, 'last_name': last_name, 'username': username, 'email': email, 'phone': phone}
 
         errors = []
 
         if not username or not email or not password:
             errors.append('Заполните логин, электронную почту и пароль.')
+
+        try:
+            validate_email(email)
+        except ValidationError:
+            errors.append('Введите корректный адрес электронной почты.')
+
+        if phone and not re.fullmatch(r'[+0-9()\- ]{6,20}', phone):
+            errors.append('Введите корректный номер телефона.')
+
+        if len(username) > 150 or len(first_name) > 150 or len(last_name) > 150:
+            errors.append('Имя, фамилия и логин не должны превышать 150 символов.')
 
         if len(password) < 8:
             errors.append('Пароль должен содержать минимум 8 символов.')
@@ -223,7 +241,7 @@ def register_page(request):
             messages.success(request, 'Регистрация прошла успешно!')
             return redirect('account')
 
-    return render(request, 'main/register.html')
+    return render(request, 'main/register.html', {'values': values})
 
 
 def login_page(request):

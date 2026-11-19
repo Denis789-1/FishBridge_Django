@@ -31,39 +31,51 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            <form method="post">
+            <form method="post" id="register-form" novalidate>
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="first_name">Имя</label>
-                    <input type="text" id="first_name" name="first_name" placeholder="Введите имя">
+                    <input type="text" id="first_name" name="first_name" value="{{ values.first_name|default:'' }}" placeholder="Введите имя" maxlength="150">
                 </div>
                 <div class="form-group">
                     <label for="last_name">Фамилия</label>
-                    <input type="text" id="last_name" name="last_name" placeholder="Введите фамилию">
+                    <input type="text" id="last_name" name="last_name" value="{{ values.last_name|default:'' }}" placeholder="Введите фамилию" maxlength="150">
                 </div>
                 <div class="form-group">
                     <label for="username">Логин</label>
-                    <input type="text" id="username" name="username" placeholder="Придумайте логин" required>
+                    <input type="text" id="username" name="username" value="{{ values.username|default:'' }}" placeholder="Придумайте логин" maxlength="150" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Электронная почта</label>
-                    <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+                    <input type="email" id="email" name="email" value="{{ values.email|default:'' }}" placeholder="example@mail.ru" maxlength="254" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">Телефон</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+7 900 000-00-00">
+                    <input type="tel" id="phone" name="phone" value="{{ values.phone|default:'' }}" placeholder="+7 900 000-00-00" maxlength="20" pattern="[+0-9()\- ]{6,20}">
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" placeholder="Минимум 8 символов" minlength="8" required>
+                    <input type="password" id="password" name="password" placeholder="Минимум 8 символов" minlength="8" maxlength="128" required>
                 </div>
+                <p class="field-error" id="register-client-error" role="alert"></p>
                 <button type="submit" class="btn auth-button">Создать аккаунт</button>
             </form>
             <p class="auth-switch">Уже зарегистрированы? <a href="{% url 'login' %}">Войти в аккаунт</a></p>
         </div>
     </div>
 </main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p></div></div></footer>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
+            <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
+            <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
+            <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
+    </div>
+</footer>
 <script src="{% static 'js/menu.js' %}" defer></script>
+<script src="{% static 'js/forms.js' %}" defer></script>
 </body>
 </html>

@@ -20,12 +20,12 @@
 </header>
 <main>
     {% if messages %}
-    <div class="container messages">
-        {% for message in messages %}
-        <p class="message {{ message.tags }}">{{ message }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
+<div class="messages">
+    {% for message in messages %}
+    <p class="message {{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
     <section class="hero">
         <div class="container">
             <h1>Рыбалка начинается здесь</h1>

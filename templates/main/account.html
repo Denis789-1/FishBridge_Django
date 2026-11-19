@@ -34,6 +34,14 @@
         <div class="stat"><strong>{{ bookings.count }}</strong><p>Бронирования</p></div>
         <div class="stat"><strong>{{ completed_count }}</strong><p>Завершённые поездки</p></div>
     </div>
+    <div class="info-block favorites-account">
+        <h2>Избранные водоёмы</h2>
+        <p class="section-description">Сохранённые водоёмы находятся здесь. Вы можете перейти к бронированию или убрать водоём из избранного.</p>
+        <div class="cards" id="account-favorites" aria-live="polite"></div>
+        <p class="empty-state" id="favorites-empty" hidden>В избранном пока нет водоёмов. Добавьте их в каталоге.</p>
+        <a href="{% url 'ponds' %}" class="btn">Перейти в каталог</a>
+    </div>
+    {{ favorite_ponds|json_script:"favorite-pond-data" }}
     <div class="info-block"><h2>Мои бронирования</h2><div class="table-wrap"><table>
         <thead><tr><th>Водоём</th><th>Сектор</th><th>Тариф</th><th>Дата</th><th>Статус</th></tr></thead>
         <tbody>{% for booking in bookings %}
@@ -44,6 +52,17 @@
     <div class="info-block"><h2>Профиль не найден</h2><p>Для просмотра личного кабинета необходимо войти в систему. Учётная запись сайта должна быть связана с профилем FishBridge.</p><a href="{% url 'login' %}" class="btn">Войти</a></div>
     {% endif %}
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p></div></div></footer>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
+            <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
+            <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
+            <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
+    </div>
+</footer>
     <script src="{% static 'js/menu.js' %}" defer></script>
+    <script src="{% static 'js/account-favorites.js' %}" defer></script>
 </body></html>

@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('ponds/', views.ponds_list, name='ponds'),
+    path('api/ponds/', views.ponds_api, name='ponds_api'),
     path('ponds/<int:pk>/', views.pond_detail, name='pond_detail'),
     path('booking/', views.booking, name='booking'),
     path('account/', views.account, name='account'),
