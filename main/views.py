@@ -2,15 +2,19 @@
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Count, Prefetch
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
 from django.urls import reverse
+from django.templatetags.static import static
 from datetime import timedelta
+import logging
 import re
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .forms import BookingForm
+
+logger = logging.getLogger(__name__)
 
 from fishbridge.models import (
     Booking,
@@ -22,8 +26,34 @@ from fishbridge.models import (
 )
 
 
+
+POND_IMAGES = {
+    1: ('images/ozero-bolshoe-2.webp', 1023, 707),
+    2: ('images/lesnoy-prud.webp', 1280, 960),
+    3: ('images/carpovoe-ozero.webp', 596, 335),
+    4: ('images/severny-prud.webp', 447, 447),
+    5: ('images/south-ozero.webp', 678, 452),
+    6: ('images/prud-tihiy.webp', 1000, 750),
+    7: ('images/sosnovoe-ozero.webp', 528, 378),
+    8: ('images/maly-prud.webp', 1333, 1000),
+    9: ('images/west-ozero.webp', 1024, 768),
+    10: ('images/vostochny-prud.webp', 1400, 933),
+}
+
+
+def add_pond_image(pond):
+    image = POND_IMAGES.get(pond.pk)
+    if image:
+        pond.image_url = static(image[0])
+        pond.image_width = image[1]
+        pond.image_height = image[2]
+    return pond
+
+
 def home(request):
     featured_ponds = Pond.objects.filter(is_active=True)[:3]
+    for pond in featured_ponds:
+        add_pond_image(pond)
 
     return render(request, 'main/index.html', {
         'featured_ponds': featured_ponds,
@@ -32,7 +62,9 @@ def home(request):
 
 def ponds_list(request):
     query = request.GET.get('q', '').strip()
-    ponds = Pond.objects.filter(is_active=True)
+    ponds = Pond.objects.filter(is_active=True).annotate(
+        sectors_count=Count('sectors', filter=Q(sectors__is_active=True))
+    )
 
     if query:
         ponds = ponds.filter(
@@ -43,6 +75,8 @@ def ponds_list(request):
 
     paginator = Paginator(ponds, 20)
     page_obj = paginator.get_page(request.GET.get('page'))
+    for pond in page_obj:
+        add_pond_image(pond)
 
     return render(request, 'main/ponds.html', {
         'page_obj': page_obj,
@@ -52,6 +86,7 @@ def ponds_list(request):
 
 def pond_detail(request, pk):
     pond = get_object_or_404(Pond, pk=pk, is_active=True)
+    add_pond_image(pond)
 
     sectors = pond.sectors.filter(is_active=True)
     fish_species = pond.fish_species.all()
@@ -73,7 +108,9 @@ def booking(request):
     })
 
     if request.method == 'POST':
+        logger.info('Получена отправка формы бронирования')
         if not profile:
+            logger.warning('Попытка бронирования без действующего профиля')
             messages.error(request, 'Для бронирования сначала войдите в аккаунт.')
             return redirect('login')
         if form.is_valid():
@@ -86,14 +123,21 @@ def booking(request):
                 booking_item.full_clean()
                 booking_item.save()
             except ValidationError as error:
+                logger.error('Ошибка проверки данных бронирования: %s', error)
                 if hasattr(error, 'message_dict'):
                     for field, errors in error.message_dict.items():
                         form.add_error(field if field in form.fields else None, errors)
                 else:
                     form.add_error(None, error.messages)
+            except Exception:
+                logger.exception('Не удалось сохранить бронирование')
+                raise
             else:
+                logger.info('Бронирование успешно сохранено: booking_id=%s', booking_item.pk)
                 messages.success(request, 'Заявка на бронирование успешно отправлена.')
                 return redirect('account')
+        else:
+            logger.warning('Форма бронирования не прошла проверку: %s', form.errors.as_json())
 
     return render(request, 'main/booking.html', {'form': form})
 
@@ -111,7 +155,11 @@ def ponds_api(request):
         'description': pond.description or 'Описание пока не добавлено.',
         'address': pond.address,
         'url': reverse('pond_detail', args=[pond.pk]),
+        'image_url': static(POND_IMAGES[pond.pk][0]) if pond.pk in POND_IMAGES else '',
+        'image_width': POND_IMAGES[pond.pk][1] if pond.pk in POND_IMAGES else 0,
+        'image_height': POND_IMAGES[pond.pk][2] if pond.pk in POND_IMAGES else 0,
     } for pond in ponds[:20]]
+    logger.debug('API поиска водоёмов: query=%r, results=%s', query, len(data))
     return JsonResponse({'ponds': data})
 
 
@@ -122,6 +170,9 @@ def account(request):
         id=user_id,
         is_active=True,
     ).first() if user_id else None
+    if user_id and profile is None:
+        logger.warning('В сессии найден несуществующий или неактивный профиль: user_id=%s', user_id)
+        request.session.pop('fishbridge_user_id', None)
 
     bookings = Booking.objects.none()
     rentals = Rental.objects.none()
@@ -137,8 +188,15 @@ def account(request):
             booking__user=profile
         ).select_related('rental_item', 'booking')
 
-        for pond in Pond.objects.filter(is_active=True).prefetch_related('sectors'):
-            sector = pond.sectors.filter(is_active=True).first()
+        ponds = Pond.objects.filter(is_active=True).prefetch_related(
+            Prefetch(
+                'sectors',
+                queryset=Sector.objects.filter(is_active=True).order_by('pk'),
+                to_attr='active_sectors',
+            )
+        )
+        for pond in ponds:
+            sector = pond.active_sectors[0] if pond.active_sectors else None
             favorite_ponds.append({
                 'id': pond.pk,
                 'name': pond.name,
@@ -177,6 +235,9 @@ def search_results(request):
             | Q(description__icontains=query)
             | Q(address__icontains=query)
         )
+
+    for pond in ponds:
+        add_pond_image(pond)
 
     return render(request, 'main/search_results.html', {
         'query': query,
@@ -238,6 +299,7 @@ def register_page(request):
             )
 
             request.session['fishbridge_user_id'] = user.id
+            logger.info('Зарегистрирован пользователь: user_id=%s', user.pk)
             messages.success(request, 'Регистрация прошла успешно!')
             return redirect('account')
 
@@ -263,9 +325,11 @@ def login_page(request):
         if user and check_password(password, user.password):
             request.session.cycle_key()
             request.session['fishbridge_user_id'] = user.id
+            logger.info('Успешный вход пользователя: user_id=%s', user.pk)
             messages.success(request, 'Вы успешно вошли в аккаунт.')
             return redirect('account')
 
+        logger.warning('Неудачная попытка входа')
         messages.error(request, 'Неверный логин или пароль.')
 
     return render(request, 'main/login.html')
