@@ -4,7 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const loading = document.querySelector('#pond-loading');
     if (!cards) return;
 
-    const saved = new Set(JSON.parse(localStorage.getItem('fishbridge-favorites') || '[]'));
+    let savedFavorites = [];
+    try {
+        const storedFavorites = JSON.parse(localStorage.getItem('fishbridge-favorites') || '[]');
+        if (Array.isArray(storedFavorites)) savedFavorites = storedFavorites.map(String);
+    } catch (error) {
+        console.warn('Не удалось прочитать избранное из localStorage:', error);
+    }
+    const saved = new Set(savedFavorites);
     const updateFavorites = () => {
         document.querySelectorAll('[data-favorite]').forEach((button) => {
             const active = saved.has(button.dataset.favorite);
@@ -36,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (!response.ok) throw new Error('Ошибка ответа сервера');
             const data = await response.json();
+            if (!data || !Array.isArray(data.ponds)) throw new Error('Сервер вернул данные в неверном формате');
             if (currentRequest !== requestNumber) return;
             cards.replaceChildren();
             if (!data.ponds.length) {
@@ -47,6 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
             data.ponds.forEach((pond) => {
                 const article = document.createElement('article');
                 article.className = 'card';
+                if (pond.image_url) {
+                    const image = document.createElement('img');
+                    image.className = 'pond-card-image';
+                    image.src = pond.image_url;
+                    image.alt = pond.name;
+                    image.width = pond.image_width;
+                    image.height = pond.image_height;
+                    image.loading = 'lazy';
+                    image.decoding = 'async';
+                    article.append(image);
+                }
                 const content = document.createElement('div');
                 content.className = 'card-content';
                 const title = document.createElement('h3'); title.textContent = pond.name;
@@ -60,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFavorites();
             loading.textContent = `Найдено водоёмов: ${data.ponds.length}`;
         } catch (error) {
+            console.error('Ошибка поиска водоёмов:', error);
             loading.textContent = 'Не удалось загрузить результаты. Попробуйте обновить страницу.';
         }
     });
