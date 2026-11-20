@@ -1,18 +1,8 @@
+{% extends 'main/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishBridge — О сервисе</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<header><div class="container header-content">
-    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
-    <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
-<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></nav>
-</div></header>
+{% block title %}FishBridge — О сервисе{% endblock %}
+
+{% block content %}
 <main class="section"><div class="container">
     <h1 class="section-title">О FishBridge</h1>
     <p class="section-description">Сервис для планирования рыбалки и отдыха на природе</p>
@@ -28,16 +18,8 @@
     </div>
     <div class="center-action"><a href="{% url 'ponds' %}" class="btn">Перейти к водоёмам</a></div>
 </div></main>
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
-            <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
-            <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
-            <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
-        </div>
-        <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
-    </div>
-</footer>
-    <script src="{% static 'js/menu.js' %}" defer></script>
-</body></html>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/menu.js' %}" defer></script>
+{% endblock %}

@@ -1,18 +1,8 @@
+{% extends 'main/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishBridge — Водоёмы</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<header><div class="container header-content">
-    <a href="{% url 'home' %}" class="logo">Fish<span>Bridge</span></a>
-    <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-navigation"><span></span><span></span><span></span></button>
-<nav class="site-nav" id="site-navigation"><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'login' %}">Войти</a><a href="{% url 'account' %}">Кабинет</a></nav>
-</div></header>
+{% block title %}FishBridge — Водоёмы{% endblock %}
+
+{% block content %}
 <main class="section"><div class="container">
     <h1 class="section-title">Наши водоёмы</h1>
     <p class="section-description">Выберите подходящее место для рыбалки</p>
@@ -24,13 +14,16 @@
     <div class="cards" id="pond-cards" aria-live="polite">
         {% for pond in page_obj %}
         <article class="card" data-pond-card>
+            {% if pond.image_url %}
+            <img class="pond-card-image" src="{{ pond.image_url }}" alt="{{ pond.name }}" width="{{ pond.image_width }}" height="{{ pond.image_height }}" loading="lazy" decoding="async">
+            {% endif %}
             <div class="card-content">
                 <h3>{{ pond.name }}</h3>
                 <p>{{ pond.description|default:"Описание пока не добавлено."|truncatechars:160 }}</p>
                 <p><strong>Адрес:</strong> {{ pond.address }}</p>
                 {% if pond.area %}<p><strong>Площадь:</strong> {{ pond.area|floatformat:2 }} га</p>{% endif %}
                 {% if pond.depth %}<p><strong>Глубина:</strong> {{ pond.depth|floatformat:2 }} м</p>{% endif %}
-                <p><strong>Секторов:</strong> {{ pond.sectors.count }}</p>
+                <p><strong>Секторов:</strong> {{ pond.sectors_count }}</p>
                 <a href="{% url 'pond_detail' pond.pk %}" class="btn">Подробнее</a>
                 <button type="button" class="favorite-button" data-favorite="{{ pond.pk }}" aria-pressed="false">♡ В избранное</button>
             </div>
@@ -51,15 +44,9 @@
         <p>При выборе обратите внимание на расположение, доступные рыболовные секторы и виды рыб. На странице каждого водоёма можно посмотреть дополнительную информацию и варианты тарифов.</p>
     </div>
 </div></main>
-<footer class="footer"><div class="container">
-    <div class="footer-content">
-        <div class="footer-about"><h2>Fish<span>Bridge</span></h2><p>Сервис для удобного бронирования рыболовных мест. Выбирайте водоёмы, бронируйте секторы и отдыхайте на природе.</p></div>
-        <div class="footer-links"><h3>Навигация</h3><a href="{% url 'home' %}">Главная</a><a href="{% url 'ponds' %}">Водоёмы</a><a href="{% url 'about' %}">О сервисе</a></div>
-        <div class="footer-links"><h3>Мой аккаунт</h3><a href="{% url 'login' %}">Войти</a><a href="{% url 'register' %}">Регистрация</a><a href="{% url 'account' %}">Личный кабинет</a></div>
-        <div class="footer-info"><h3>FishBridge</h3><p>Удобное бронирование</p><p>Аренда оборудования</p><p>Рыбалка и отдых</p></div>
-    </div>
-    <div class="footer-bottom"><p>© 2026 FishBridge. Все права защищены.</p><p>Сервис бронирования рыболовных мест</p></div>
-</div></footer>
-    <script src="{% static 'js/menu.js' %}" defer></script>
-    <script src="{% static 'js/ponds.js' %}" defer></script>
-</body></html>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/menu.js' %}" defer></script>
+<script src="{% static 'js/ponds.js' %}" defer></script>
+{% endblock %}
