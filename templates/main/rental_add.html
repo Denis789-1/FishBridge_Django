@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %}FishBridge — Прокат{% endblock %}
+{% block content %}
+<main class="container section">
+    <div class="form-panel">
+        <h1>Добавить оборудование</h1>
+        <p class="form-description">Бронирование №{{ booking.pk }} · {{ booking.sector.pond.name }} · {{ booking.sector.name }}</p>
+        <p>Период проката соответствует продолжительности тарифа: {{ booking.tariff.duration_hours }} ч.</p>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="field-error" role="alert">{{ error }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn">Добавить к бронированию</button>
+        </form>
+        <div class="form-footer"><a href="{% url 'account' %}">Вернуться в личный кабинет</a></div>
+    </div>
+</main>
+{% endblock %}

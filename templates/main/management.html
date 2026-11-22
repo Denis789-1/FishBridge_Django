@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %}FishBridge — Управление{% endblock %}
+{% block content %}
+<main class="section"><div class="container">
+    <h1 class="section-title">Панель администратора</h1>
+    <p class="section-description">Сводная информация по системе</p>
+    <div class="info-block">
+        <h2>Период отчёта</h2>
+        <form method="get" class="filter-form">
+            <div class="form-group"><label for="date-from">С даты</label><input id="date-from" type="date" name="date_from" value="{{ date_from }}"></div>
+            <div class="form-group"><label for="date-to">По дату</label><input id="date-to" type="date" name="date_to" value="{{ date_to }}"></div>
+            <button type="submit" class="btn">Показать отчёт</button>
+        </form>
+    </div>
+    <div class="stats">
+        <div class="stat"><strong>{{ ponds_count }}</strong><p>Водоёмы</p></div>
+        <div class="stat"><strong>{{ sectors_count }}</strong><p>Секторы</p></div>
+        <div class="stat"><strong>{{ bookings_count }}</strong><p>Бронирования</p></div>
+        <div class="stat"><strong>{{ rentals_count }}</strong><p>Записи проката</p></div>
+        <div class="stat"><strong>{{ catches_count }}</strong><p>Записи улова</p></div>
+    </div>
+    <div class="info-block">
+        <h2>Начисления за период</h2>
+        <p>Бронирования по текущим ценам тарифов: {{ booking_total|floatformat:2 }} ₽</p>
+        <p>Прокат: {{ rental_total|floatformat:2 }} ₽</p>
+        <p>Доплаты: {{ extra_total|floatformat:2 }} ₽</p>
+        <p><strong>Всего: {{ accrual_total|floatformat:2 }} ₽</strong></p>
+        <p class="section-description">Стоимость бронирования рассчитана по текущей цене тарифа, поскольку историческая цена отдельно в записи бронирования не сохраняется.</p>
+    </div>
+    <div class="info-block">
+        <h2>Управление данными</h2>
+        <p>Для добавления и изменения водоёмов, секторов, тарифов, проката, видов рыб, партий зарыбления и записей бронирования используется административная панель Django. Для входа в неё нужна отдельная учётная запись Django Superuser.</p>
+        <a href="{{ admin_url }}" class="btn">Открыть административную панель</a>
+    </div>
+</div></main>
+{% endblock %}

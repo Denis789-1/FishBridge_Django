@@ -17,7 +17,14 @@
         {% if pond.depth %}<p><strong>Глубина:</strong> {{ pond.depth|floatformat:2 }} м</p>{% endif %}
     </div>
     <h2 class="section-title">Рыболовные секторы</h2>
-    <p class="section-description">Доступные места для рыбалки</p>
+    <p class="section-description">Проверьте занятость секторов на выбранную дату</p>
+    <form method="get" class="filter-form">
+        <div class="form-group">
+            <label for="sector-date">Дата посещения</label>
+            <input id="sector-date" type="date" name="date" value="{{ selected_date }}" required>
+        </div>
+        <button type="submit" class="btn">Показать доступность</button>
+    </form>
     <div class="cards">
         {% for sector in sectors %}
         <article class="card"><div class="card-content">
@@ -25,9 +32,14 @@
             <p>{{ sector.description|default:"Описание отсутствует."|truncatechars:150 }}</p>
             <p><strong>Вместимость:</strong> {{ sector.capacity }} чел.</p>
             <p><strong>Стоимость:</strong> {{ sector.price|floatformat:2 }} ₽</p>
-            <a href="{% url 'booking' %}?sector={{ sector.pk }}" class="btn">Забронировать</a>
+            <p class="status">{{ sector.status_label }}</p>
+            {% if not sector.is_booked_on_date %}
+            <a href="{% url 'booking' %}?sector={{ sector.pk }}&pond={{ pond.pk }}" class="btn">Забронировать</a>
+            {% else %}
+            <button type="button" class="btn" disabled>Недоступен</button>
+            {% endif %}
         </div></article>
-        {% empty %}<p class="empty-state">Для этого водоёма пока нет доступных секторов.</p>{% endfor %}
+        {% empty %}<p class="empty-state">Для этого водоёма пока нет секторов.</p>{% endfor %}
     </div>
     <h2 class="section-title section-title--spaced">Виды рыб</h2>
     <div class="cards">

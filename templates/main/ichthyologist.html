@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block title %}FishBridge — Кабинет ихтиолога{% endblock %}
+{% block content %}
+<main class="section"><div class="container">
+    <h1 class="section-title">Кабинет ихтиолога</h1>
+    <p class="section-description">Виды рыб и история зарыбления водоёмов</p>
+    <div class="info-block">
+        <h2>Виды рыб</h2>
+        <div class="cards">
+            {% for fish in species %}
+            <article class="card"><div class="card-content">
+                <h3>{{ fish.name }}</h3>
+                <p>{{ fish.description|default:"Описание отсутствует." }}</p>
+                {% if fish.average_weight %}<p>Средний вес: {{ fish.average_weight|floatformat:2 }} кг</p>{% endif %}
+                <p>Цена за кг сверх нормы: {{ fish.over_limit_price_per_kg|floatformat:2 }} ₽</p>
+            </div></article>
+            {% empty %}<p class="empty-state">Виды рыб пока не добавлены.</p>{% endfor %}
+        </div>
+    </div>
+    <div class="info-block">
+        <h2>Партии зарыбления</h2>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Водоём</th><th>Вид рыбы</th><th>Количество</th><th>Общий вес</th><th>Дата</th><th>Ответственный</th></tr></thead>
+            <tbody>{% for batch in batches %}
+            <tr><td>{{ batch.pond.name }}</td><td>{{ batch.fish_species.name }}</td><td>{{ batch.quantity }}</td><td>{{ batch.total_weight|floatformat:2 }} кг</td><td>{{ batch.stocking_date|date:"d.m.Y" }}</td><td>{{ batch.responsible.get_full_name|default:batch.responsible.username }}</td></tr>
+            {% empty %}<tr><td colspan="6">Партии зарыбления пока не зарегистрированы.</td></tr>{% endfor %}</tbody>
+        </table></div>
+    </div>
+</div></main>
+{% endblock %}

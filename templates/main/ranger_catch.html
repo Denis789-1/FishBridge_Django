@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% block title %}FishBridge — Учёт улова{% endblock %}
+{% block content %}
+<main class="section"><div class="container">
+    <h1 class="section-title">Учёт улова</h1>
+    <p class="section-description">Внесите вес каждого вида рыбы. После внесения всех записей закройте визит, чтобы система рассчитала доплату.</p>
+    {% if messages %}{% for message in messages %}<p class="status">{{ message }}</p>{% endfor %}{% endif %}
+    <div class="form-panel">
+        <h2>Добавить запись об улове</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="field-error" role="alert">{{ error }}</p>{% endfor %}
+                {% if field.help_text %}<p class="section-description">{{ field.help_text }}</p>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn">Сохранить улов</button>
+        </form>
+    </div>
+    <div class="form-panel">
+        <h2>Закрыть визит и рассчитать доплату</h2>
+        <p>Норма тарифа применяется к обычному улову. Трофейный экземпляр весом более 5 кг либо исключается из расчёта при отпуске, либо отдельно оплачивается по двойной цене за килограмм.</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="close_visit">
+            <div class="form-group">
+                <label for="{{ close_form.booking.id_for_label }}">{{ close_form.booking.label }}</label>
+                {{ close_form.booking }}
+                {% for error in close_form.booking.errors %}<p class="field-error" role="alert">{{ error }}</p>{% endfor %}
+            </div>
+            <button type="submit" class="btn">Закрыть визит</button>
+        </form>
+    </div>
+    <div class="info-block">
+        <h2>Последние записи</h2>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Бронирование</th><th>Рыболов</th><th>Водоём</th><th>Вид рыбы</th><th>Количество</th><th>Общий вес</th><th>Трофей</th><th>Решение</th><th>Цена сверх нормы</th><th>Егерь</th></tr></thead>
+            <tbody>{% for catch in recent_catches %}
+            <tr><td>№{{ catch.booking_id }}</td><td>{{ catch.booking.user.username }}</td><td>{{ catch.booking.sector.pond.name }}</td><td>{{ catch.fish_species.name }}</td><td>{{ catch.quantity }}</td><td>{{ catch.total_weight|floatformat:2 }} кг</td><td>{{ catch.trophy_weight|floatformat:2 }} кг</td><td>{{ catch.get_trophy_decision_display|default:'—' }}</td><td>{{ catch.fish_species.over_limit_price_per_kg|floatformat:2 }} ₽/кг</td><td>{{ catch.ranger.username }}</td></tr>
+            {% empty %}<tr><td colspan="10">Записей об улове пока нет.</td></tr>{% endfor %}</tbody>
+        </table></div>
+    </div>
+    <div class="info-block">
+        <h2>Последние расчёты</h2>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Бронь</th><th>Рыболов</th><th>Общий улов</th><th>Норма</th><th>Обычный улов</th><th>Превышение</th><th>Отпущено</th><th>Доплата</th></tr></thead>
+            <tbody>{% for payment in recent_payments %}
+            <tr><td>№{{ payment.booking_id }}</td><td>{{ payment.booking.user.username }}</td><td>{{ payment.catch_weight|floatformat:2 }} кг</td><td>{{ payment.allowed_weight|floatformat:2 }} кг</td><td>{{ payment.billable_weight|floatformat:2 }} кг</td><td>{{ payment.excess_weight|floatformat:2 }} кг</td><td>{{ payment.released_weight|floatformat:2 }} кг</td><td>{{ payment.amount|floatformat:2 }} ₽</td></tr>
+            {% empty %}<tr><td colspan="8">Расчётов пока нет.</td></tr>{% endfor %}</tbody>
+        </table></div>
+    </div>
+</div></main>
+{% endblock %}

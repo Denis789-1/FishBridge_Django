@@ -1,0 +1,548 @@
+2026-11-22 01:15:09,998 WARNING log Forbidden: /management/
+2026-11-22 01:15:10,691 WARNING log Not Found: /booking/2/rentals/
+2026-11-22 01:15:10,891 WARNING log Forbidden: /ichthyologist/
+2026-11-22 01:15:11,234 INFO views Егерь зарегистрировал улов: catch_id=1 booking_id=1
+2026-11-22 01:15:11,470 WARNING log Forbidden: /ranger/catch/
+2026-11-22 01:15:29,475 INFO autoreload Watching for file changes with StatReloader
+2026-11-22 01:15:38,254 INFO log "GET /ponds/ HTTP/1.1" 200 43197
+2026-11-22 01:15:38,291 INFO log "GET /static/images/fish-svgrepo-com.svg HTTP/1.1" 200 3617
+2026-11-22 01:15:38,293 INFO log "GET /static/css/style.css HTTP/1.1" 200 17734
+2026-11-22 01:15:38,311 INFO log "GET /static/debug_toolbar/img/Green.svg HTTP/1.1" 200 1029
+2026-11-22 01:15:38,316 INFO log "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 34333
+2026-11-22 01:15:38,336 INFO log "GET /static/js/ponds.js HTTP/1.1" 200 4598
+2026-11-22 01:15:38,354 INFO log "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14955
+2026-11-22 01:15:38,364 INFO log "GET /static/js/menu.js HTTP/1.1" 200 1129
+2026-11-22 01:15:38,391 INFO log "GET /static/debug_toolbar/img/Coloured-Light.svg HTTP/1.1" 200 8697
+2026-11-22 01:15:38,398 INFO log "GET /static/images/carpovoe-ozero.webp HTTP/1.1" 200 38524
+2026-11-22 01:15:38,414 INFO log "GET /static/images/severny-prud.webp HTTP/1.1" 200 20996
+2026-11-22 01:15:38,433 INFO log "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 5041
+2026-11-22 01:15:38,447 INFO log "GET /static/images/south-ozero.webp HTTP/1.1" 200 58134
+2026-11-22 01:15:38,475 INFO log "GET /static/images/sosnovoe-ozero.webp HTTP/1.1" 200 66166
+2026-11-22 01:15:38,488 INFO log "GET /static/images/ozero-bolshoe-2.webp HTTP/1.1" 200 213262
+2026-11-22 01:15:38,496 INFO log "GET /static/images/prud-tihiy.webp HTTP/1.1" 200 151148
+2026-11-22 01:15:38,506 INFO log "GET /static/images/lesnoy-prud.webp HTTP/1.1" 200 331406
+2026-11-22 01:15:38,510 INFO log "GET /static/images/west-ozero.webp HTTP/1.1" 200 79568
+2026-11-22 01:15:38,512 INFO log "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+2026-11-22 01:15:38,526 INFO log "GET /static/images/maly-prud.webp HTTP/1.1" 200 235872
+2026-11-22 01:15:38,545 INFO log "GET /static/images/vostochny-prud.webp HTTP/1.1" 200 255200
+2026-11-22 01:15:38,677 WARNING log Not Found: /favicon.ico
+2026-11-22 01:15:38,678 WARNING log "GET /favicon.ico HTTP/1.1" 404 35735
+2026-11-22 01:15:40,203 INFO log "GET /ponds/2/ HTTP/1.1" 200 40516
+2026-11-22 01:15:53,687 INFO log "GET /ponds/2/?date=2026-11-21 HTTP/1.1" 200 40533
+2026-11-22 01:15:55,126 INFO log "GET /account/ HTTP/1.1" 200 41817
+2026-11-22 01:16:03,083 INFO log "GET /booking/55/rentals/ HTTP/1.1" 200 33952
+2026-11-22 01:16:11,167 INFO log "POST /booking/55/rentals/ HTTP/1.1" 302 0
+2026-11-22 01:16:11,275 INFO log "GET /account/ HTTP/1.1" 200 42083
+2026-11-22 01:16:18,634 INFO log "GET /about/ HTTP/1.1" 200 33736
+2026-11-22 01:16:19,744 INFO log "GET /account/ HTTP/1.1" 200 41910
+2026-11-22 01:16:44,863 INFO log "GET /about/ HTTP/1.1" 200 33736
+2026-11-22 01:16:44,894 INFO log "GET /static/css/style.css HTTP/1.1" 304 0
+2026-11-22 01:16:45,678 INFO log "GET /account/ HTTP/1.1" 200 41909
+2026-11-22 01:16:47,711 INFO log "GET /logout/ HTTP/1.1" 302 0
+2026-11-22 01:16:47,771 INFO log "GET / HTTP/1.1" 200 37326
+2026-11-22 01:16:49,878 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 01:16:50,880 INFO log "GET /register/ HTTP/1.1" 200 34735
+2026-11-22 01:16:52,597 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 01:16:54,349 INFO log "GET /about/ HTTP/1.1" 200 33776
+2026-11-22 01:16:55,038 INFO log "GET /ponds/ HTTP/1.1" 200 43232
+2026-11-22 01:16:55,737 INFO log "GET / HTTP/1.1" 200 37211
+2026-11-22 01:16:56,972 INFO log "GET /about/ HTTP/1.1" 200 33776
+2026-11-22 01:16:57,576 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 01:16:58,703 INFO log "GET /register/ HTTP/1.1" 200 34735
+2026-11-22 01:16:59,762 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 01:17:14,373 INFO log "GET / HTTP/1.1" 200 37211
+2026-11-22 01:17:22,491 INFO log "GET /ponds/9/ HTTP/1.1" 200 40056
+2026-11-22 01:17:25,842 INFO log "GET /booking/?sector=34&pond=9 HTTP/1.1" 200 35774
+2026-11-22 01:17:25,933 INFO log "GET /static/js/booking.js HTTP/1.1" 200 756
+2026-11-22 01:17:34,691 INFO views Получена отправка формы бронирования
+2026-11-22 01:17:34,691 WARNING views Попытка бронирования без действующего профиля
+2026-11-22 01:17:34,729 INFO log "POST /booking/?sector=34&pond=9 HTTP/1.1" 302 0
+2026-11-22 01:17:34,772 INFO log "GET /login/ HTTP/1.1" 200 33713
+2026-11-22 01:17:34,808 INFO log "GET /static/css/style.css HTTP/1.1" 304 0
+2026-11-22 01:17:38,588 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 01:17:40,290 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 22:30:15,692 INFO autoreload Watching for file changes with StatReloader
+2026-11-22 22:30:29,195 INFO log "GET / HTTP/1.1" 200 37212
+2026-11-22 22:30:29,227 INFO log "GET /static/images/fish-svgrepo-com.svg HTTP/1.1" 200 3617
+2026-11-22 22:30:29,228 INFO log "GET /static/css/style.css HTTP/1.1" 304 0
+2026-11-22 22:30:29,242 INFO log "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 34333
+2026-11-22 22:30:29,245 INFO log "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14955
+2026-11-22 22:30:29,251 INFO log "GET /static/js/menu.js HTTP/1.1" 200 1129
+2026-11-22 22:30:29,252 INFO log "GET /static/debug_toolbar/img/Coloured-Light.svg HTTP/1.1" 200 8697
+2026-11-22 22:30:29,263 INFO log "GET /static/debug_toolbar/img/Green.svg HTTP/1.1" 200 1029
+2026-11-22 22:30:29,265 INFO log "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+2026-11-22 22:30:29,279 INFO log "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 5041
+2026-11-22 22:30:29,729 INFO log "GET /static/images/west-ozero.webp HTTP/1.1" 200 79568
+2026-11-22 22:30:29,809 INFO log "GET /static/images/ozero-bolshoe-2.webp HTTP/1.1" 200 213262
+2026-11-22 22:30:29,964 INFO log "GET /static/images/vostochny-prud.webp HTTP/1.1" 200 255200
+2026-11-22 22:30:30,052 WARNING log Not Found: /favicon.ico
+2026-11-22 22:30:30,053 WARNING log "GET /favicon.ico HTTP/1.1" 404 35736
+2026-11-22 22:30:40,736 INFO log "GET / HTTP/1.1" 200 37211
+2026-11-22 22:30:43,446 ERROR log Internal Server Error: /ponds/10/
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: fishbridge_fishspecies.over_limit_price_per_kg
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\main\views.py", line 157, in pond_detail
+    return render(request, 'main/pond_detail.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\defaulttags.py", line 202, in render
+    len_values = len(values)
+                 ^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 455, in __len__
+    self._fetch_all()
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 281, in execute
+    return self._record(super().execute, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 201, in _record
+    return method(sql, params)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: fishbridge_fishspecies.over_limit_price_per_kg
+2026-11-22 22:30:43,643 ERROR log "GET /ponds/10/ HTTP/1.1" 500 267521
+2026-11-22 22:30:50,592 INFO log "GET /ponds/ HTTP/1.1" 200 43232
+2026-11-22 22:30:50,644 INFO log "GET /static/js/ponds.js HTTP/1.1" 200 4598
+2026-11-22 22:30:50,715 INFO log "GET /static/images/carpovoe-ozero.webp HTTP/1.1" 200 38524
+2026-11-22 22:30:50,719 INFO log "GET /static/images/severny-prud.webp HTTP/1.1" 200 20996
+2026-11-22 22:30:50,720 INFO log "GET /static/images/south-ozero.webp HTTP/1.1" 200 58134
+2026-11-22 22:30:50,759 INFO log "GET /static/images/sosnovoe-ozero.webp HTTP/1.1" 200 66166
+2026-11-22 22:30:50,792 INFO log "GET /static/images/prud-tihiy.webp HTTP/1.1" 200 151148
+2026-11-22 22:30:50,803 INFO log "GET /static/images/lesnoy-prud.webp HTTP/1.1" 200 331406
+2026-11-22 22:30:50,805 INFO log "GET /static/images/maly-prud.webp HTTP/1.1" 200 235872
+2026-11-22 22:30:52,747 ERROR log Internal Server Error: /ponds/2/
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: fishbridge_fishspecies.over_limit_price_per_kg
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\main\views.py", line 157, in pond_detail
+    return render(request, 'main/pond_detail.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\defaulttags.py", line 202, in render
+    len_values = len(values)
+                 ^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 455, in __len__
+    self._fetch_all()
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 281, in execute
+    return self._record(super().execute, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 201, in _record
+    return method(sql, params)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: fishbridge_fishspecies.over_limit_price_per_kg
+2026-11-22 22:30:52,915 ERROR log "GET /ponds/2/ HTTP/1.1" 500 267463
+2026-11-22 22:30:58,139 INFO log "GET /about/ HTTP/1.1" 200 33776
+2026-11-22 22:31:00,510 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 22:31:01,345 INFO log "GET /register/ HTTP/1.1" 200 34735
+2026-11-22 22:31:01,367 INFO log "GET /static/js/forms.js HTTP/1.1" 304 0
+2026-11-22 22:31:03,306 INFO log "GET /login/ HTTP/1.1" 200 33462
+2026-11-22 22:31:16,445 INFO views Успешный вход пользователя: user_id=38
+2026-11-22 22:31:16,492 INFO log "POST /login/ HTTP/1.1" 302 0
+2026-11-22 22:31:16,797 ERROR log Internal Server Error: /account/
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: fishbridge_extrapayment.billable_weight
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\main\views.py", line 272, in account
+    return render(request, 'main/account.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\test\utils.py", line 113, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\defaulttags.py", line 333, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1107, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\base.py", line 1068, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\template\defaulttags.py", line 202, in render
+    len_values = len(values)
+                 ^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 455, in __len__
+    self._fetch_all()
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 281, in execute
+    return self._record(super().execute, sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\debug_toolbar\panels\sql\tracking.py", line 201, in _record
+    return method(sql, params)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\FishBridge_Django\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: fishbridge_extrapayment.billable_weight
+2026-11-22 22:31:16,977 ERROR log "GET /account/ HTTP/1.1" 500 321019
+2026-11-22 22:31:51,426 WARNING log Forbidden: /management/
+2026-11-22 22:31:51,651 WARNING log Not Found: /booking/2/rentals/
+2026-11-22 22:31:51,835 WARNING log Forbidden: /ichthyologist/
+2026-11-22 22:31:52,045 INFO views Визит закрыт: booking_id=1 extra_payment=200.00
+2026-11-22 22:31:52,158 INFO views Егерь зарегистрировал улов: catch_id=1 booking_id=1
+2026-11-22 22:31:52,238 WARNING log Forbidden: /ranger/catch/
+2026-11-22 22:32:00,888 INFO autoreload Watching for file changes with StatReloader
+2026-11-22 22:32:12,258 INFO log "GET / HTTP/1.1" 200 37178
+2026-11-22 22:32:18,806 INFO log "GET /about/ HTTP/1.1" 200 33736
+2026-11-22 22:32:20,151 INFO log "GET /account/ HTTP/1.1" 200 42006
+2026-11-22 22:32:20,173 INFO log "GET /static/js/account-favorites.js HTTP/1.1" 304 0
+2026-11-22 22:32:56,015 INFO log "GET /booking/55/rentals/ HTTP/1.1" 200 33951
+2026-11-22 22:33:03,018 INFO log "POST /booking/55/rentals/ HTTP/1.1" 302 0
+2026-11-22 22:33:03,113 INFO log "GET /account/ HTTP/1.1" 200 42364
+2026-11-22 22:33:23,303 INFO log "GET /ponds/ HTTP/1.1" 200 43196
+2026-11-22 22:33:24,045 INFO log "GET / HTTP/1.1" 200 37177
+2026-11-22 22:33:54,476 INFO log "GET /admin/ HTTP/1.1" 302 0
+2026-11-22 22:33:54,562 INFO log "GET /admin/login/?next=/admin/ HTTP/1.1" 200 33695
+2026-11-22 22:33:54,590 INFO log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3583
+2026-11-22 22:33:54,598 INFO log "GET /static/admin/css/base.css HTTP/1.1" 200 24538
+2026-11-22 22:33:54,607 INFO log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2814
+2026-11-22 22:33:54,615 INFO log "GET /static/admin/css/login.css HTTP/1.1" 200 951
+2026-11-22 22:33:54,617 INFO log "GET /static/admin/js/theme.js HTTP/1.1" 200 1708
+2026-11-22 22:33:54,617 INFO log "GET /static/admin/css/responsive.css HTTP/1.1" 200 15025
+2026-11-22 22:33:54,625 INFO log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3208
+2026-11-22 22:34:11,582 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:34:23,849 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:34:31,537 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:35:40,026 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:36:33,610 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:36:40,628 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 200 33867
+2026-11-22 22:36:46,799 INFO log "GET /admin/ HTTP/1.1" 302 0
+2026-11-22 22:36:46,854 INFO log "GET /admin/login/?next=/admin/ HTTP/1.1" 200 33695
+2026-11-22 22:39:48,014 INFO autoreload Watching for file changes with StatReloader
+2026-11-22 22:40:07,313 INFO log "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2026-11-22 22:40:07,537 INFO log "GET /admin/ HTTP/1.1" 200 43047
+2026-11-22 22:40:07,596 INFO log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 442
+2026-11-22 22:40:07,624 INFO log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+2026-11-22 22:40:07,625 INFO log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+2026-11-22 22:40:36,379 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48491
+2026-11-22 22:40:36,420 INFO log "GET /static/admin/css/changelists.css HTTP/1.1" 200 6216
+2026-11-22 22:40:36,439 INFO log "GET /static/admin/js/actions.js HTTP/1.1" 200 8999
+2026-11-22 22:40:36,440 INFO log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 349
+2026-11-22 22:40:36,448 INFO log "GET /static/admin/js/core.js HTTP/1.1" 200 6432
+2026-11-22 22:40:36,450 INFO log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 11452
+2026-11-22 22:40:36,455 INFO log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1575
+2026-11-22 22:40:36,461 INFO log "GET /static/admin/js/urlify.js HTTP/1.1" 200 9985
+2026-11-22 22:40:36,471 INFO log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2026-11-22 22:40:36,480 INFO log "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+2026-11-22 22:40:36,487 INFO log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2026-11-22 22:40:36,503 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:40:36,521 INFO log "GET /static/admin/js/filters.js HTTP/1.1" 200 1099
+2026-11-22 22:40:36,578 INFO log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+2026-11-22 22:40:36,580 INFO log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1761
+2026-11-22 22:40:45,075 INFO log "GET /admin/fishbridge/fishspecies/?o=3.1 HTTP/1.1" 200 49221
+2026-11-22 22:40:45,151 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:40:53,598 INFO log "GET /admin/fishbridge/pond/ HTTP/1.1" 200 46693
+2026-11-22 22:40:53,675 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:40:56,521 INFO log "GET /admin/fishbridge/extrapayment/ HTTP/1.1" 200 56275
+2026-11-22 22:40:56,559 INFO log "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 645
+2026-11-22 22:40:56,560 INFO log "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 558
+2026-11-22 22:40:56,609 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:40:56,639 INFO log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+2026-11-22 22:40:57,996 INFO log "GET /admin/fishbridge/stockingbatch/ HTTP/1.1" 200 50064
+2026-11-22 22:40:58,090 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:41:00,310 INFO log "GET /admin/fishbridge/rentalitem/ HTTP/1.1" 200 46772
+2026-11-22 22:41:00,391 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:41:01,219 INFO log "GET /admin/fishbridge/user/ HTTP/1.1" 200 57212
+2026-11-22 22:41:01,292 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:41:12,632 INFO log "GET /admin/fishbridge/rentalitem/ HTTP/1.1" 200 46772
+2026-11-22 22:41:12,719 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:27,855 INFO log "GET /admin/fishbridge/fishspecies/add/ HTTP/1.1" 200 45200
+2026-11-22 22:42:27,889 INFO log "GET /static/admin/css/widgets.css HTTP/1.1" 200 12094
+2026-11-22 22:42:27,890 INFO log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 726
+2026-11-22 22:42:27,891 INFO log "GET /static/admin/css/forms.css HTTP/1.1" 200 7951
+2026-11-22 22:42:27,914 INFO log "GET /static/admin/js/change_form.js HTTP/1.1" 200 677
+2026-11-22 22:42:27,942 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:30,254 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48491
+2026-11-22 22:42:30,333 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:33,031 INFO log "GET /admin/fishbridge/fishspecies/?o=3.1 HTTP/1.1" 200 49220
+2026-11-22 22:42:33,125 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:41,999 INFO log "GET /admin/fishbridge/pond/ HTTP/1.1" 200 46693
+2026-11-22 22:42:42,077 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:43,903 INFO log "GET /admin/fishbridge/user/ HTTP/1.1" 200 57212
+2026-11-22 22:42:43,992 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:45,521 INFO log "GET /admin/fishbridge/tariff/ HTTP/1.1" 200 46951
+2026-11-22 22:42:45,612 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:48,669 INFO log "GET /admin/fishbridge/pond/ HTTP/1.1" 200 46692
+2026-11-22 22:42:48,744 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:42:50,281 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48490
+2026-11-22 22:42:50,358 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:43:21,015 INFO log "GET /admin/fishbridge/fishspecies/2/change/ HTTP/1.1" 200 45539
+2026-11-22 22:43:21,103 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:43:28,614 INFO log "GET /admin/fishbridge/pond/ HTTP/1.1" 200 46693
+2026-11-22 22:43:28,703 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:43:29,713 INFO log "GET /admin/fishbridge/pond/9/change/ HTTP/1.1" 200 46661
+2026-11-22 22:43:29,831 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:43:31,869 INFO log "GET /admin/fishbridge/user/ HTTP/1.1" 200 57212
+2026-11-22 22:43:31,945 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:50:57,058 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48490
+2026-11-22 22:50:57,126 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:01,080 INFO log "GET /admin/fishbridge/fishspecies/3/change/ HTTP/1.1" 200 45519
+2026-11-22 22:51:01,152 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:08,591 INFO log "POST /admin/fishbridge/fishspecies/3/change/ HTTP/1.1" 302 0
+2026-11-22 22:51:08,790 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48713
+2026-11-22 22:51:08,901 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:12,137 INFO log "GET /admin/fishbridge/fishspecies/10/change/ HTTP/1.1" 200 45533
+2026-11-22 22:51:12,227 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:18,938 INFO log "POST /admin/fishbridge/fishspecies/10/change/ HTTP/1.1" 302 0
+2026-11-22 22:51:19,051 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48718
+2026-11-22 22:51:19,139 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:22,301 INFO log "GET /admin/fishbridge/fishspecies/7/change/ HTTP/1.1" 200 45510
+2026-11-22 22:51:22,399 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:51:27,244 INFO log "POST /admin/fishbridge/fishspecies/7/change/ HTTP/1.1" 302 0
+2026-11-22 22:51:27,373 INFO log "GET /admin/fishbridge/fishspecies/ HTTP/1.1" 200 48715
+2026-11-22 22:51:27,455 INFO log "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+2026-11-22 22:54:52,194 WARNING log Forbidden: /management/
+2026-11-22 22:54:52,337 WARNING log Not Found: /booking/2/rentals/
+2026-11-22 22:54:52,466 WARNING log Forbidden: /ichthyologist/
+2026-11-22 22:54:52,560 INFO views Визит закрыт: booking_id=1 extra_payment=200.00
+2026-11-22 22:54:52,641 INFO views Егерь зарегистрировал улов: catch_id=1 booking_id=1
+2026-11-22 22:54:52,743 WARNING log Forbidden: /ranger/catch/
+2026-11-22 22:55:50,271 WARNING log Forbidden: /management/
+2026-11-22 22:55:50,459 WARNING log Not Found: /booking/2/rentals/
+2026-11-22 22:55:50,593 WARNING log Forbidden: /ichthyologist/
+2026-11-22 22:55:50,691 INFO views Визит закрыт: booking_id=1 extra_payment=200.00
+2026-11-22 22:55:50,823 INFO views Егерь зарегистрировал улов: catch_id=1 booking_id=1
+2026-11-22 22:55:50,894 WARNING log Forbidden: /ranger/catch/

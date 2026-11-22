@@ -72,6 +72,9 @@ class Sector(models.Model):
     capacity = models.PositiveSmallIntegerField('Вместимость')
     price = models.DecimalField('Стоимость, руб.', max_digits=10, decimal_places=2)
     is_active = models.BooleanField('Доступен', default=True)
+    is_closed = models.BooleanField('Временно закрыт', default=False)
+    closure_reason = models.CharField('Причина закрытия', max_length=255, blank=True)
+    closed_until = models.DateTimeField('Закрыт до', null=True, blank=True)
 
     class Meta:
         verbose_name = 'рыболовный сектор'
@@ -91,6 +94,7 @@ class FishSpecies(models.Model):
     name = models.CharField('Название вида', max_length=100, unique=True)
     description = models.TextField('Описание', blank=True)
     average_weight = models.DecimalField('Средний вес, кг', max_digits=6, decimal_places=2, null=True, blank=True)
+    over_limit_price_per_kg = models.DecimalField('Цена за кг сверх нормы, руб.', max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         verbose_name = 'вид рыбы'
@@ -98,6 +102,7 @@ class FishSpecies(models.Model):
         ordering = ['name']
         constraints = [
             models.CheckConstraint(condition=Q(average_weight__isnull=True) | Q(average_weight__gt=0), name='fish_average_weight_positive'),
+            models.CheckConstraint(condition=Q(over_limit_price_per_kg__gte=0), name='fish_over_limit_price_nonnegative'),
         ]
 
     def __str__(self):
@@ -234,11 +239,17 @@ class Rental(models.Model):
 
 
 class CatchRecord(models.Model):
+    class TrophyDecision(models.TextChoices):
+        RELEASE = 'release', 'Отпустить обратно в водоём'
+        PAY_DOUBLE = 'pay_double', 'Оплатить по двойному тарифу'
+
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='catch_records', verbose_name='Бронирование')
     fish_species = models.ForeignKey(FishSpecies, on_delete=models.PROTECT, related_name='catch_records', verbose_name='Вид рыбы')
     ranger = models.ForeignKey(User, on_delete=models.PROTECT, related_name='recorded_catches', verbose_name='Егерь', limit_choices_to={'role': User.Role.RANGER})
     quantity = models.PositiveSmallIntegerField('Количество рыб')
     total_weight = models.DecimalField('Общий вес, кг', max_digits=8, decimal_places=2)
+    trophy_weight = models.DecimalField('Вес трофейного экземпляра, кг', max_digits=8, decimal_places=2, default=0, blank=True)
+    trophy_decision = models.CharField('Решение по трофейному экземпляру', max_length=20, choices=TrophyDecision.choices, blank=True)
     recorded_at = models.DateTimeField('Дата и время учёта', auto_now_add=True)
     comment = models.TextField('Комментарий', blank=True)
 
@@ -249,7 +260,18 @@ class CatchRecord(models.Model):
         constraints = [
             models.CheckConstraint(condition=Q(quantity__gt=0), name='catch_quantity_positive'),
             models.CheckConstraint(condition=Q(total_weight__gt=0), name='catch_weight_positive'),
+            models.CheckConstraint(condition=Q(trophy_weight__gte=0), name='catch_trophy_weight_nonnegative'),
+            models.CheckConstraint(condition=Q(trophy_weight__lte=F('total_weight')), name='catch_trophy_not_over_total'),
         ]
+
+    def clean(self):
+        super().clean()
+        if self.trophy_weight and self.trophy_weight <= 5:
+            raise ValidationError({'trophy_weight': 'Трофейным считается экземпляр весом строго более 5 кг.'})
+        if self.trophy_weight and not self.trophy_decision:
+            raise ValidationError({'trophy_decision': 'Выберите решение по трофейному экземпляру.'})
+        if not self.trophy_weight and self.trophy_decision:
+            raise ValidationError({'trophy_decision': 'Решение можно выбрать только для трофейного экземпляра.'})
 
     def __str__(self):
         return f'{self.fish_species}: {self.total_weight} кг (бронь №{self.booking_id})'
@@ -257,16 +279,21 @@ class CatchRecord(models.Model):
 
 class ExtraPayment(models.Model):
     class Decision(models.TextChoices):
-        RELEASE = 'release', 'Отпустить лишний улов'
-        PAY_DOUBLE = 'pay_double', 'Оплатить по двойному тарифу'
+        NONE = 'none', 'Без трофейного решения'
+        RELEASE = 'release', 'Трофейный экземпляр отпущен'
+        PAY_DOUBLE = 'pay_double', 'Трофейный экземпляр оплачен по двойному тарифу'
+        MIXED = 'mixed', 'Применены оба варианта'
 
     booking = models.OneToOneField(Booking, on_delete=models.CASCADE, related_name='extra_payment', verbose_name='Бронирование')
-    catch_weight = models.DecimalField('Фактический вес улова, кг', max_digits=8, decimal_places=2)
-    allowed_weight = models.DecimalField('Разрешённый вес, кг', max_digits=8, decimal_places=2)
-    excess_weight = models.DecimalField('Превышение, кг', max_digits=8, decimal_places=2)
+    catch_weight = models.DecimalField('Общий вес зарегистрированного улова, кг', max_digits=8, decimal_places=2)
+    allowed_weight = models.DecimalField('Норма вылова по тарифу, кг', max_digits=8, decimal_places=2)
+    billable_weight = models.DecimalField('Вес обычного улова, учитываемый в норме, кг', max_digits=8, decimal_places=2, default=0)
+    released_weight = models.DecimalField('Вес отпущенных трофеев, кг', max_digits=8, decimal_places=2, default=0)
+    excess_weight = models.DecimalField('Превышение нормы обычного улова, кг', max_digits=8, decimal_places=2)
     amount = models.DecimalField('Сумма доплаты, руб.', max_digits=10, decimal_places=2, default=0)
-    decision = models.CharField('Решение', max_length=20, choices=Decision.choices)
-    calculated_at = models.DateTimeField('Дата расчёта', auto_now_add=True)
+    decision = models.CharField('Решение по трофеям', max_length=20, choices=Decision.choices, default=Decision.NONE)
+    details = models.JSONField('Расшифровка расчёта', default=dict, blank=True)
+    calculated_at = models.DateTimeField('Дата расчёта', auto_now=True)
     is_paid = models.BooleanField('Оплачено', default=False)
 
     class Meta:
@@ -276,9 +303,12 @@ class ExtraPayment(models.Model):
         constraints = [
             models.CheckConstraint(condition=Q(catch_weight__gte=0), name='extra_catch_weight_nonnegative'),
             models.CheckConstraint(condition=Q(allowed_weight__gte=0), name='extra_allowed_weight_nonnegative'),
+            models.CheckConstraint(condition=Q(billable_weight__gte=0), name='extra_billable_weight_nonnegative'),
+            models.CheckConstraint(condition=Q(released_weight__gte=0), name='extra_released_weight_nonnegative'),
             models.CheckConstraint(condition=Q(excess_weight__gte=0), name='extra_excess_weight_nonnegative'),
             models.CheckConstraint(condition=Q(amount__gte=0), name='extra_amount_nonnegative'),
         ]
 
     def __str__(self):
         return f'Доплата по брони №{self.booking_id}: {self.amount} руб.'
+
