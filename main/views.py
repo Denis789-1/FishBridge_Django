@@ -537,5 +537,5 @@ def login_page(request):
 
 def logout_page(request):
     request.session.flush()
-    messages.success(request, 'Вы вышли из аккаунта.')
+    messages.success(request, 'Вы вышли из аккаунта!')
     return redirect('home')
