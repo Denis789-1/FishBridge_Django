@@ -475,6 +475,9 @@ def register_page(request):
         if len(password) < 8:
             errors.append('Пароль должен содержать минимум 8 символов.')
 
+        if len(password.strip()) < 8:
+            errors.append('Пароль должен содержать минимум 8 символов.')
+
         if FishBridgeUser.objects.filter(username=username).exists():
             errors.append('Пользователь с таким логином уже существует.')
 
