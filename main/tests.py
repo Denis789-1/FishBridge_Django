@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from .services import calculate_extra_payment
 from fishbridge.models import Booking, CatchRecord, ExtraPayment, FishSpecies, Pond, Rental, RentalItem, Sector, Tariff, User
-from .forms import BookingForm, CatchRecordForm
+from .forms import BookingForm, CatchRecordForm, CloseVisitForm
 
 
 class FishBridgeFeatureTests(TestCase):
@@ -80,6 +80,9 @@ class FishBridgeFeatureTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_ranger_can_register_catch_for_booking(self):
+        self.booking.start_datetime = timezone.now() - timedelta(hours=1)
+        self.booking.end_datetime = timezone.now() + timedelta(hours=23)
+        self.booking.save(update_fields=['start_datetime', 'end_datetime'])
         self.login_as(self.ranger)
         response = self.client.post(reverse('ranger_catch'), {
             'booking': self.booking.pk,
@@ -235,6 +238,9 @@ class FishBridgeFeatureTests(TestCase):
         self.assertEqual(payment.decision, ExtraPayment.Decision.PAY_DOUBLE)
 
     def test_catch_form_rejects_trophy_weight_not_over_five_kg(self):
+        self.booking.start_datetime = timezone.now() - timedelta(hours=1)
+        self.booking.end_datetime = timezone.now() + timedelta(hours=23)
+        self.booking.save(update_fields=['start_datetime', 'end_datetime'])
         form = CatchRecordForm(data={
             'booking': self.booking.pk,
             'fish_species': self.fish.pk,
@@ -246,7 +252,34 @@ class FishBridgeFeatureTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('trophy_weight', form.errors)
 
+    def test_catch_form_excludes_future_bookings(self):
+        form = CatchRecordForm()
+        self.assertNotIn(self.booking, form.fields['booking'].queryset)
+
+    def test_ranger_cannot_close_future_booking(self):
+        CatchRecord.objects.create(
+            booking=self.booking,
+            fish_species=self.fish,
+            ranger=self.ranger,
+            quantity=1,
+            total_weight=Decimal('2.00'),
+        )
+        form = CloseVisitForm()
+        self.assertNotIn(self.booking, form.fields['booking'].queryset)
+        self.login_as(self.ranger)
+        response = self.client.post(reverse('ranger_catch'), {
+            'action': 'close_visit',
+            'booking': self.booking.pk,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.booking.refresh_from_db()
+        self.assertEqual(self.booking.status, Booking.Status.PENDING)
+        self.assertFalse(ExtraPayment.objects.filter(booking=self.booking).exists())
+
     def test_ranger_can_close_visit_and_save_automatic_calculation(self):
+        self.booking.start_datetime = timezone.now() - timedelta(hours=1)
+        self.booking.end_datetime = timezone.now() + timedelta(hours=23)
+        self.booking.save(update_fields=['start_datetime', 'end_datetime'])
         CatchRecord.objects.create(
             booking=self.booking,
             fish_species=self.fish,

@@ -131,7 +131,8 @@ class CatchRecordForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['booking'].queryset = Booking.objects.filter(
-            status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED]
+            status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED],
+            start_datetime__lte=timezone.now(),
         ).select_related('user', 'sector__pond', 'tariff')
         self.fields['trophy_weight'].required = False
         self.fields['trophy_weight'].initial = 0
@@ -180,6 +181,7 @@ class CloseVisitForm(forms.Form):
         self.fields['booking'].queryset = Booking.objects.filter(
             catch_records__isnull=False,
             status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED],
+            start_datetime__lte=timezone.now(),
         ).select_related(
             'user', 'tariff', 'sector__pond'
         ).distinct()
