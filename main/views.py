@@ -466,7 +466,7 @@ def register_page(request):
         except ValidationError:
             errors.append('Введите корректный адрес электронной почты.')
 
-        if phone and not re.fullmatch(r'[+0-9()\- ]{6,20}', phone):
+        if phone and (not re.fullmatch(r'[+0-9()\- ]{6,20}', phone) or len(re.sub(r'\D', '', phone)) < 6):
             errors.append('Введите корректный номер телефона.')
 
         if len(username) > 150 or len(first_name) > 150 or len(last_name) > 150:
