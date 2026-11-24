@@ -200,7 +200,7 @@ def booking(request):
                 raise
             else:
                 logger.info('Бронирование успешно сохранено: booking_id=%s', booking_item.pk)
-                messages.success(request, 'Заявка на бронирование успешно отправлена.')
+                messages.success(request, 'Заявка на бронирование успешно отправлена!')
                 return redirect('account')
         else:
             logger.warning('Форма бронирования не прошла проверку: %s', form.errors.as_json())
