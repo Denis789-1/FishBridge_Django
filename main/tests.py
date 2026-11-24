@@ -94,6 +94,14 @@ class FishBridgeFeatureTests(TestCase):
         self.assertEqual(catch.ranger, self.ranger)
         self.assertEqual(catch.total_weight, Decimal('3.50'))
 
+    def test_completed_booking_has_disabled_rental_button(self):
+        self.booking.status = Booking.Status.COMPLETED
+        self.booking.save(update_fields=['status'])
+        self.login_as(self.angler)
+        response = self.client.get(reverse('account'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<button class="btn" type="button" disabled>Добавить прокат</button>', html=True)
+
     def test_angler_can_add_rental_to_own_booking(self):
         self.login_as(self.angler)
         item = RentalItem.objects.create(

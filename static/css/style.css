@@ -107,6 +107,15 @@ nav a:hover {
     background-color: var(--color-primary);
 }
 
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+    background-color: var(--color-primary-hover);
+}
+
 .btn-light {
     background-color: white;
     color: var(--color-primary);
