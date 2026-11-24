@@ -79,6 +79,17 @@ class FishBridgeFeatureTests(TestCase):
         response = self.client.get(reverse('ranger_catch'))
         self.assertEqual(response.status_code, 200)
 
+    def test_catch_form_excludes_expired_bookings(self):
+        expired_booking = Booking.objects.create(
+            user=self.angler,
+            sector=self.sector,
+            tariff=self.tariff,
+            start_datetime=timezone.now() - timedelta(days=2),
+            end_datetime=timezone.now() - timedelta(days=1),
+        )
+        form = CatchRecordForm()
+        self.assertNotIn(expired_booking, form.fields['booking'].queryset)
+
     def test_ranger_can_register_catch_for_booking(self):
         self.booking.start_datetime = timezone.now() - timedelta(hours=1)
         self.booking.end_datetime = timezone.now() + timedelta(hours=23)
