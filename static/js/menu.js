@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('.nav-toggle');
     const menu = document.querySelector('.site-nav');
 
