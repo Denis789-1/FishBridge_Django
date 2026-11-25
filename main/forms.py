@@ -1,7 +1,11 @@
+
 from decimal import Decimal
+from datetime import timedelta
+
 from django import forms
 from django.utils import timezone
 from django.db.models import Q
+
 from fishbridge.models import Booking, Sector, Tariff, Pond, RentalItem, CatchRecord, Rental
 
 
@@ -70,7 +74,6 @@ class BookingForm(forms.ModelForm):
         if tariff and not tariff.is_active:
             self.add_error('tariff', 'Этот тариф сейчас недоступен.')
         if sector and tariff and start:
-            from datetime import timedelta
             end = start + timedelta(hours=tariff.duration_hours)
             conflict = Booking.objects.filter(
                 sector=sector,
@@ -131,9 +134,10 @@ class CatchRecordForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['booking'].queryset = Booking.objects.filter(
-    status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED],
-    start_datetime__lte=timezone.now(),
-).select_related('user', 'sector__pond', 'tariff')
+            status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED],
+            start_datetime__lte=timezone.now(),
+            end_datetime__gte=timezone.now(),
+        ).select_related('user', 'sector__pond', 'tariff')
         self.fields['trophy_weight'].required = False
         self.fields['trophy_weight'].initial = 0
         self.fields['trophy_decision'].required = False
@@ -167,7 +171,7 @@ class CatchRecordForm(forms.ModelForm):
                 self.add_error('trophy_decision', 'Выберите: отпустить трофей или оплатить по двойному тарифу.')
         elif decision:
             self.add_error('trophy_decision', 'Сначала укажите вес трофейного экземпляра.')
-       
+
         return cleaned
 
 
@@ -180,13 +184,6 @@ class CloseVisitForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['booking'].queryset = Booking.objects.filter(
-            catch_records__isnull=False,
             status__in=[Booking.Status.PENDING, Booking.Status.CONFIRMED],
             start_datetime__lte=timezone.now(),
-        ).select_related(
-            'user', 'tariff', 'sector__pond'
-        ).distinct()
-        self.fields['booking'].label_from_instance = lambda booking: (
-            f'Бронь №{booking.pk} — {booking.user.username} — {booking.sector} — '
-            f'{booking.start_datetime:%d.%m.%Y %H:%M}'
-        )
+        ).select_related('user', 'sector__pond', 'tariff')

@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-import debug_toolbar
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
-    path("__debug__/", include(debug_toolbar.urls)),
 ]
+
+handler403 = 'main.views.handler403'
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'

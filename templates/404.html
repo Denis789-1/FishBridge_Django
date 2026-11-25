@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block title %}404 — Страница не найдена{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>404 — Страница не найдена</h1>
+    <p>Запрашиваемая страница или запись не существует.</p>
+    <a href="{% url 'home' %}" class="btn">На главную</a>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block title %}500 — Ошибка сервера{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>500 — Внутренняя ошибка сервера</h1>
+    <p>Во время обработки запроса произошла ошибка. Попробуйте повторить действие позже.</p>
+    <a href="{% url 'home' %}" class="btn">На главную</a>
+</section>
+{% endblock %}

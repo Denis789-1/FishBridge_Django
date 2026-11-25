@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block title %}403 — Доступ запрещён{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>403 — Доступ запрещён</h1>
+    <p>У вас недостаточно прав для просмотра этой страницы.</p>
+    <a href="{% url 'home' %}" class="btn">На главную</a>
+</section>
+{% endblock %}

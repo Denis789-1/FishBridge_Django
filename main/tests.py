@@ -1,11 +1,27 @@
+
 from datetime import timedelta
 from decimal import Decimal
-from django.test import TestCase
+from unittest.mock import patch
+
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+
 from .services import calculate_extra_payment
-from fishbridge.models import Booking, CatchRecord, ExtraPayment, FishSpecies, Pond, Rental, RentalItem, Sector, Tariff, User
 from .forms import BookingForm, CatchRecordForm, CloseVisitForm
+
+from fishbridge.models import (
+    Booking,
+    CatchRecord,
+    ExtraPayment,
+    FishSpecies,
+    Pond,
+    Rental,
+    RentalItem,
+    Sector,
+    Tariff,
+    User,
+)
 
 
 class FishBridgeFeatureTests(TestCase):
@@ -42,7 +58,10 @@ class FishBridgeFeatureTests(TestCase):
             duration_hours=24,
             catch_limit=Decimal('5.00'),
         )
-        self.fish = FishSpecies.objects.create(name='Карп', over_limit_price_per_kg=Decimal('100.00'))
+        self.fish = FishSpecies.objects.create(
+            name='Карп',
+            over_limit_price_per_kg=Decimal('100.00'),
+        )
         self.start = timezone.now() + timedelta(days=3)
         self.booking = Booking.objects.create(
             user=self.angler,
@@ -72,9 +91,11 @@ class FishBridgeFeatureTests(TestCase):
     def test_ranger_page_requires_ranger_role(self):
         response = self.client.get(reverse('ranger_catch'))
         self.assertRedirects(response, reverse('login'))
+
         self.login_as(self.angler)
         response = self.client.get(reverse('ranger_catch'))
         self.assertEqual(response.status_code, 403)
+
         self.login_as(self.ranger)
         response = self.client.get(reverse('ranger_catch'))
         self.assertEqual(response.status_code, 200)
@@ -94,6 +115,7 @@ class FishBridgeFeatureTests(TestCase):
         self.booking.start_datetime = timezone.now() - timedelta(hours=1)
         self.booking.end_datetime = timezone.now() + timedelta(hours=23)
         self.booking.save(update_fields=['start_datetime', 'end_datetime'])
+
         self.login_as(self.ranger)
         response = self.client.post(reverse('ranger_catch'), {
             'booking': self.booking.pk,
@@ -102,6 +124,7 @@ class FishBridgeFeatureTests(TestCase):
             'total_weight': '3.50',
             'comment': 'Проверочная запись',
         })
+
         self.assertRedirects(response, reverse('ranger_catch'))
         catch = CatchRecord.objects.get()
         self.assertEqual(catch.booking, self.booking)
@@ -111,10 +134,16 @@ class FishBridgeFeatureTests(TestCase):
     def test_completed_booking_has_disabled_rental_button(self):
         self.booking.status = Booking.Status.COMPLETED
         self.booking.save(update_fields=['status'])
+
         self.login_as(self.angler)
         response = self.client.get(reverse('account'))
+
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<button class="btn" type="button" disabled>Добавить прокат</button>', html=True)
+        self.assertContains(
+            response,
+            '<button class="btn" type="button" disabled>Добавить прокат</button>',
+            html=True,
+        )
 
     def test_angler_can_add_rental_to_own_booking(self):
         self.login_as(self.angler)
@@ -123,10 +152,12 @@ class FishBridgeFeatureTests(TestCase):
             price_per_day=Decimal('200.00'),
             quantity_available=2,
         )
+
         response = self.client.post(reverse('rental_add', args=[self.booking.pk]), {
             'rental_item': item.pk,
             'quantity': 1,
         })
+
         self.assertRedirects(response, reverse('account'))
         rental = Rental.objects.get()
         self.assertEqual(rental.booking, self.booking)
@@ -147,15 +178,19 @@ class FishBridgeFeatureTests(TestCase):
             start_datetime=self.start,
             end_datetime=self.start + timedelta(hours=24),
         )
+
         self.login_as(self.angler)
         response = self.client.get(reverse('rental_add', args=[other_booking.pk]))
         self.assertEqual(response.status_code, 404)
+
     def test_temporary_sector_closure_hides_sector_from_booking_form(self):
         self.sector.is_closed = True
         self.sector.closure_reason = 'Технические работы'
         self.sector.save(update_fields=['is_closed', 'closure_reason'])
+
         form = BookingForm()
         self.assertNotIn(self.sector, form.fields['sector'].queryset)
+
         response = self.client.get(
             reverse('pond_detail', args=[self.pond.pk]),
             {'date': self.start.date().isoformat()},
@@ -166,6 +201,7 @@ class FishBridgeFeatureTests(TestCase):
         self.login_as(self.ranger)
         response = self.client.get(reverse('management_dashboard'))
         self.assertEqual(response.status_code, 403)
+
         admin_user = User.objects.create(
             username='admin_test',
             password='unused',
@@ -174,12 +210,15 @@ class FishBridgeFeatureTests(TestCase):
         )
         self.login_as(admin_user)
         response = self.client.get(reverse('management_dashboard'))
+
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Начисления за период')
+
     def test_ichthyologist_dashboard_requires_ichthyologist_role(self):
         self.login_as(self.ranger)
         response = self.client.get(reverse('ichthyologist_dashboard'))
         self.assertEqual(response.status_code, 403)
+
         ichthyologist = User.objects.create(
             username='ichthyologist_test',
             password='unused',
@@ -188,12 +227,15 @@ class FishBridgeFeatureTests(TestCase):
         )
         self.login_as(ichthyologist)
         response = self.client.get(reverse('ichthyologist_dashboard'))
+
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Кабинет ихтиолога')
 
-
     def test_extra_payment_calculates_overage_using_each_species_price(self):
-        pike = FishSpecies.objects.create(name='Щука', over_limit_price_per_kg=Decimal('200.00'))
+        pike = FishSpecies.objects.create(
+            name='Щука',
+            over_limit_price_per_kg=Decimal('200.00'),
+        )
         CatchRecord.objects.create(
             booking=self.booking,
             fish_species=self.fish,
@@ -208,7 +250,9 @@ class FishBridgeFeatureTests(TestCase):
             quantity=1,
             total_weight=Decimal('3.00'),
         )
+
         payment = calculate_extra_payment(self.booking)
+
         self.assertEqual(payment.catch_weight, Decimal('7.00'))
         self.assertEqual(payment.allowed_weight, Decimal('5.00'))
         self.assertEqual(payment.excess_weight, Decimal('2.00'))
@@ -225,7 +269,9 @@ class FishBridgeFeatureTests(TestCase):
             trophy_weight=Decimal('6.00'),
             trophy_decision=CatchRecord.TrophyDecision.RELEASE,
         )
+
         payment = calculate_extra_payment(self.booking)
+
         self.assertEqual(payment.catch_weight, Decimal('9.00'))
         self.assertEqual(payment.billable_weight, Decimal('3.00'))
         self.assertEqual(payment.released_weight, Decimal('6.00'))
@@ -242,7 +288,9 @@ class FishBridgeFeatureTests(TestCase):
             trophy_weight=Decimal('6.50'),
             trophy_decision=CatchRecord.TrophyDecision.PAY_DOUBLE,
         )
+
         payment = calculate_extra_payment(self.booking)
+
         self.assertEqual(payment.billable_weight, Decimal('0.00'))
         self.assertEqual(payment.excess_weight, Decimal('0.00'))
         self.assertEqual(payment.amount, Decimal('1300.00'))
@@ -252,6 +300,7 @@ class FishBridgeFeatureTests(TestCase):
         self.booking.start_datetime = timezone.now() - timedelta(hours=1)
         self.booking.end_datetime = timezone.now() + timedelta(hours=23)
         self.booking.save(update_fields=['start_datetime', 'end_datetime'])
+
         form = CatchRecordForm(data={
             'booking': self.booking.pk,
             'fish_species': self.fish.pk,
@@ -260,6 +309,7 @@ class FishBridgeFeatureTests(TestCase):
             'trophy_weight': '5.00',
             'trophy_decision': CatchRecord.TrophyDecision.RELEASE,
         })
+
         self.assertFalse(form.is_valid())
         self.assertIn('trophy_weight', form.errors)
 
@@ -275,13 +325,16 @@ class FishBridgeFeatureTests(TestCase):
             quantity=1,
             total_weight=Decimal('2.00'),
         )
+
         form = CloseVisitForm()
         self.assertNotIn(self.booking, form.fields['booking'].queryset)
+
         self.login_as(self.ranger)
         response = self.client.post(reverse('ranger_catch'), {
             'action': 'close_visit',
             'booking': self.booking.pk,
         })
+
         self.assertEqual(response.status_code, 200)
         self.booking.refresh_from_db()
         self.assertEqual(self.booking.status, Booking.Status.PENDING)
@@ -291,6 +344,7 @@ class FishBridgeFeatureTests(TestCase):
         self.booking.start_datetime = timezone.now() - timedelta(hours=1)
         self.booking.end_datetime = timezone.now() + timedelta(hours=23)
         self.booking.save(update_fields=['start_datetime', 'end_datetime'])
+
         CatchRecord.objects.create(
             booking=self.booking,
             fish_species=self.fish,
@@ -298,20 +352,108 @@ class FishBridgeFeatureTests(TestCase):
             quantity=2,
             total_weight=Decimal('7.00'),
         )
+
         self.login_as(self.ranger)
         response = self.client.post(reverse('ranger_catch'), {
             'action': 'close_visit',
             'booking': self.booking.pk,
         })
+
         self.assertRedirects(response, reverse('ranger_catch'))
         payment = ExtraPayment.objects.get(booking=self.booking)
         self.booking.refresh_from_db()
+
         self.assertEqual(payment.amount, Decimal('200.00'))
         self.assertEqual(self.booking.status, Booking.Status.COMPLETED)
 
     def test_booking_page_renders_pond_filter(self):
-        response = self.client.get(reverse('booking'), {'pond': self.pond.pk, 'sector': self.sector.pk})
+        response = self.client.get(
+            reverse('booking'),
+            {'pond': self.pond.pk, 'sector': self.sector.pk},
+        )
+
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Водоём')
         self.assertContains(response, 'Сектор 1')
 
+    @override_settings(DEBUG=False)
+    def test_missing_pond_returns_custom_404(self):
+        response = self.client.get('/ponds/999999/')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, '404.html')
+
+    @override_settings(DEBUG=False)
+    def test_user_without_permissions_receives_custom_403(self):
+        self.login_as(self.angler)
+        response = self.client.get(reverse('ranger_catch'))
+        self.assertEqual(response.status_code, 403)
+        self.assertTemplateUsed(response, '403.html')
+
+    def test_invalid_catch_form_does_not_create_record(self):
+        self.booking.start_datetime = timezone.now() - timedelta(hours=1)
+        self.booking.end_datetime = timezone.now() + timedelta(hours=23)
+        self.booking.save(update_fields=['start_datetime', 'end_datetime'])
+
+        self.login_as(self.ranger)
+        response = self.client.post(reverse('ranger_catch'), {
+            'booking': self.booking.pk,
+            'fish_species': self.fish.pk,
+            'quantity': 0,
+            'total_weight': '3.50',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('quantity', response.context['form'].errors)
+        self.assertEqual(CatchRecord.objects.count(), 0)
+        self.assertIn('quantity', response.context['form'].errors)
+
+    def test_failed_visit_closure_rolls_back_booking_changes(self):
+        self.booking.start_datetime = timezone.now() - timedelta(hours=1)
+        self.booking.end_datetime = timezone.now() + timedelta(hours=23)
+        self.booking.save(update_fields=['start_datetime', 'end_datetime'])
+
+        CatchRecord.objects.create(
+            booking=self.booking,
+            fish_species=self.fish,
+            ranger=self.ranger,
+            quantity=1,
+            total_weight=Decimal('2.00'),
+        )
+
+        self.login_as(self.ranger)
+
+        def failed_calculation(booking):
+            Booking.objects.filter(pk=booking.pk).update(
+                status=Booking.Status.COMPLETED
+            )
+            raise ValueError('Ошибка расчёта')
+
+        with patch('main.views.calculate_extra_payment', side_effect=failed_calculation):
+            response = self.client.post(reverse('ranger_catch'), {
+                'action': 'close_visit',
+                'booking': self.booking.pk,
+            })
+
+        self.assertEqual(response.status_code, 200)
+        self.booking.refresh_from_db()
+        self.assertEqual(self.booking.status, Booking.Status.PENDING)
+        self.assertFalse(ExtraPayment.objects.filter(booking=self.booking).exists())
+
+    def test_empty_catch_selection_is_handled_without_payment(self):
+        with self.assertRaises(ValueError):
+            calculate_extra_payment(self.booking)
+
+        self.assertFalse(
+            ExtraPayment.objects.filter(booking=self.booking).exists()
+        )
+
+    @override_settings(DEBUG=False)
+    def test_custom_500_page_renders(self):
+        from django.test import RequestFactory
+        from main.views import handler500
+
+        request = RequestFactory().get('/')
+        response = handler500(request)
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn('500', response.content.decode())

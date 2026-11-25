@@ -4,7 +4,8 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.paginator import Paginator
 from django.db.models import Q, Count, Prefetch, Sum
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.templatetags.static import static
 from datetime import timedelta, datetime, time
@@ -81,7 +82,7 @@ def role_required(*roles):
                 messages.error(request, 'Для доступа к этой странице войдите в аккаунт.')
                 return redirect('login')
             if profile.role not in roles:
-                return HttpResponseForbidden('Недостаточно прав для просмотра этой страницы.')
+                raise PermissionDenied
             request.fishbridge_profile = profile
             return view_func(request, *args, **kwargs)
         return wrapped
@@ -342,12 +343,13 @@ def ranger_catch(request):
         if close_form.is_valid():
             booking_item = close_form.cleaned_data['booking']
             try:
-                payment = calculate_extra_payment(booking_item)
+                with transaction.atomic():
+                    payment = calculate_extra_payment(booking_item)
+                    booking_item.status = Booking.Status.COMPLETED
+                    booking_item.save(update_fields=['status'])
             except ValueError as error:
                 messages.error(request, str(error))
             else:
-                booking_item.status = Booking.Status.COMPLETED
-                booking_item.save(update_fields=['status'])
                 logger.info('Визит закрыт: booking_id=%s extra_payment=%s', booking_item.pk, payment.amount)
                 messages.success(request, f'Визит закрыт. Доплата рассчитана автоматически: {payment.amount:.2f} руб.')
                 return redirect('ranger_catch')
@@ -537,5 +539,16 @@ def login_page(request):
 
 def logout_page(request):
     request.session.flush()
-    messages.success(request, 'Вы вышли из аккаунта!')
+    messages.success(request, 'Вы вышли из аккаунта.')
     return redirect('home')
+
+def handler403(request, exception=None):
+    return render(request, '403.html', status=403)
+
+
+def handler404(request, exception=None):
+    return render(request, '404.html', status=404)
+
+
+def handler500(request):
+    return render(request, '500.html', status=500)
